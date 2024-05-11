@@ -39,6 +39,7 @@ namespace Logger
                             if (line.StartsWith("[INFO]")) { Console.ForegroundColor = ConsoleColor.Blue; }
                             if (line.StartsWith("[WARNING]")) { Console.ForegroundColor = ConsoleColor.Yellow; }
                             if (line.StartsWith("[ERROR]")) { Console.ForegroundColor = ConsoleColor.Red; }
+                            if (line.StartsWith("[INTERNAL ERROR]")) { Console.ForegroundColor = ConsoleColor.DarkRed; }
                             Console.WriteLine(line);
                         }
                     }

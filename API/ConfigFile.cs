@@ -12,6 +12,14 @@ namespace API
     {
         public static ConfigFile loaded = null;
         public bool loggerEnabled = false;
+        public static bool LoggerEnabled
+        {
+            get
+            {
+                if (loaded == null) { return false; }
+                else { return loaded.loggerEnabled; }
+            }
+        }
 
         public ConfigFile() { }
         public ConfigFile(bool loggerEnabled)
@@ -25,9 +33,17 @@ namespace API
             if (loaded == null)
             {
                 string content = File.ReadAllText(jsonFilePath);
-                ConfigFile config = new ConfigFile();
-                config = JsonConvert.DeserializeObject<ConfigFile>(content);
-                loaded = config;
+                ConfigFile config = null;
+                JsonSerializerSettings settings = new JsonSerializerSettings() { MissingMemberHandling = MissingMemberHandling.Error };
+                try
+                {
+                    config = JsonConvert.DeserializeObject<ConfigFile>(content);
+                    loaded = config;
+                }
+                catch
+                {
+                    ExceptionsManager.CantDeserealizeSourceConfigFile(jsonFilePath);
+                }
             }
         }
     }

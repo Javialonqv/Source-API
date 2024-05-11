@@ -19,6 +19,7 @@ namespace API
             set
             {
                 if (!string.IsNullOrEmpty(value)) { Console.Title = value; }
+                else { ExceptionsManager.TheConsoleTitleCantBeEmpty(value); }
             }
         }
 
@@ -26,19 +27,27 @@ namespace API
         {
             //int i = Console.WindowWidth;
             //int j = Console.WindowHeight;
-            Console.SetWindowSize(width, height);
-            if (setBufferSize) { Console.SetBufferSize(width, height); }
-            Window.width = width;
-            Window.height = height;
+            try
+            {
+                Console.SetWindowSize(width, height);
+                if (setBufferSize) { Console.SetBufferSize(width, height); }
+                Window.width = width;
+                Window.height = height;
+            }
+            catch (Exception e) { ExceptionsManager.ErrorResizingWindow(e); }
             Window.title = windowTitle;
         }
 
         public static void SetWindowSize(int width, int height, bool setBufferSize = true)
         {
-            Console.SetWindowSize(width, height);
-            if (setBufferSize) { Console.SetBufferSize(width, height); }
-            Window.width = width;
-            Window.height = height;
+            try
+            {
+                Console.SetWindowSize(width, height);
+                if (setBufferSize) { Console.SetBufferSize(width, height); }
+                Window.width = width;
+                Window.height = height;
+            }
+            catch (Exception e) { ExceptionsManager.ErrorResizingWindow(e); }
         }
     }
 }

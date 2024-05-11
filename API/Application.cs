@@ -21,7 +21,7 @@ namespace API
             ConfigFile.Init(Paths.sourceConfigFilePath);
             Console.WriteLine("Setting up Window Configurations...");
             Window.Init(Window.MAIN_WIDTH, Window.MAIN_HEIGHT, windowTitle);
-            if (ConfigFile.loaded.loggerEnabled)
+            if (ConfigFile.LoggerEnabled)
             {
                 Console.WriteLine("Initializing Logger...");
                 Debug.Init(true);

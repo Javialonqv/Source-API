@@ -16,10 +16,21 @@ namespace API
         {
             if (!isCompiled)
             {
-                sourceConfigFilePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName,
+                sourceConfigFilePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
                     "App", "SourceConfig.json");
-                loggerExecutableFilePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName,
-                    "API", "Logger.exe");
+                loggerExecutableFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Logger.exe");
+            }
+            CheckDirectories(isCompiled);
+        }
+
+        static void CheckDirectories(bool isCompiled)
+        {
+            if (!isCompiled)
+            {
+                if (!File.Exists(sourceConfigFilePath))
+                    { ExceptionsManager.CantFindSourceConfigFile(sourceConfigFilePath); }
+                if (!File.Exists(loggerExecutableFilePath))
+                    { ExceptionsManager.CantFileLoggerExecutable(loggerExecutableFilePath); }
             }
         }
     }

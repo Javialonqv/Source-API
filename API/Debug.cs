@@ -12,10 +12,12 @@ namespace API
 {
     public static class Debug
     {
+        static bool loggerEnabled = false;
         static Queue<object> messages = new Queue<object>();
 
         internal static void Init(bool loggerEnabled)
         {
+            Debug.loggerEnabled = loggerEnabled;
             if (loggerEnabled)
             {
                 Process.Start(Paths.loggerExecutableFilePath);
@@ -46,27 +48,32 @@ namespace API
 
         public static void Log(object obj)
         {
-            //if (!loggerEnabled) { ExceptionsManager.LoggerNotEnabled(); return; }
+            if (!loggerEnabled) { ExceptionsManager.LoggerNOTEnabled(); return; }
             messages.Enqueue("[LOG] " + obj);
         }
         public static void LogInfo(object obj)
         {
-            //if (!loggerEnabled) { ExceptionsManager.LoggerNotEnabled(); return; }
+            if (!loggerEnabled) { ExceptionsManager.LoggerNOTEnabled(); return; }
             messages.Enqueue("[INFO] " + obj);
         }
         public static void LogWarning(object obj)
         {
-            //if (!loggerEnabled) { ExceptionsManager.LoggerNotEnabled(); return; }
+            if (!loggerEnabled) { ExceptionsManager.LoggerNOTEnabled(); return; }
             messages.Enqueue("[WARNING] " + obj);
         }
         public static void LogError(object obj)
         {
-            //if (!loggerEnabled) { ExceptionsManager.LoggerNotEnabled(); return; }
+            if (!loggerEnabled) { ExceptionsManager.LoggerNOTEnabled(); return; }
             messages.Enqueue("[ERROR] " + obj);
+        }
+        internal static void LogInternalError(object obj)
+        {
+            if (!loggerEnabled) { ExceptionsManager.LoggerNOTEnabled(); return; }
+            messages.Enqueue("[INTERNAL ERROR] " + obj);
         }
         internal static void KillLogger()
         {
-            //if (!loggerEnabled) { ExceptionsManager.LoggerNotEnabled(); return; }
+            if (!loggerEnabled) { /*ExceptionsManager.LoggerNotEnabled();*/ return; }
             messages.Enqueue("kill-server");
         }
     }
