@@ -11,6 +11,7 @@ namespace API
     {
         public static string sourceConfigFilePath = "";
         public static string loggerExecutableFilePath = "";
+        public static string contentFolderPath = "";
 
         internal static void Init(bool isCompiled)
         {
@@ -19,6 +20,8 @@ namespace API
                 sourceConfigFilePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
                     "App", "SourceConfig.json");
                 loggerExecutableFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Logger.exe");
+                contentFolderPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
+                    "App", "Content");
             }
             CheckDirectories(isCompiled);
         }
@@ -30,7 +33,9 @@ namespace API
                 if (!File.Exists(sourceConfigFilePath))
                     { ExceptionsManager.CantFindSourceConfigFile(sourceConfigFilePath); }
                 if (!File.Exists(loggerExecutableFilePath))
-                    { ExceptionsManager.CantFileLoggerExecutable(loggerExecutableFilePath); }
+                    { ExceptionsManager.CantFindLoggerExecutableFile(loggerExecutableFilePath); }
+                if (!Directory.Exists(contentFolderPath))
+                    { ExceptionsManager.CantFindContentFolder(contentFolderPath); }
             }
         }
     }

@@ -26,6 +26,8 @@ namespace API
                 Console.WriteLine("Initializing Logger...");
                 Debug.Init(true);
             }
+            Console.WriteLine("Initializing Resources...");
+            Resources.Init(false);
             Console.WriteLine("FINISHED SETUP!!!");
             Console.Clear();
         }

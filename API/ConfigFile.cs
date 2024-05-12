@@ -33,7 +33,7 @@ namespace API
             if (loaded == null)
             {
                 string content = File.ReadAllText(jsonFilePath);
-                ConfigFile config = null;
+                ConfigFile config = new ConfigFile();
                 JsonSerializerSettings settings = new JsonSerializerSettings() { MissingMemberHandling = MissingMemberHandling.Error };
                 try
                 {
