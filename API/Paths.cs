@@ -7,12 +7,28 @@ using System.IO;
 
 namespace API
 {
+    /// <summary>
+    /// Handles all the paths required for the app execution.
+    /// </summary>
     internal static class Paths
     {
+        /// <summary>
+        /// Points to the SourceConfig.json file. This one only exists on debug mode.
+        /// </summary>
         public static string sourceConfigFilePath = "";
+        /// <summary>
+        /// Points to the Logger.exe file.
+        /// </summary>
         public static string loggerExecutableFilePath = "";
+        /// <summary>
+        /// Points to the "Content" folder.
+        /// </summary>
         public static string contentFolderPath = "";
 
+        /// <summary>
+        /// Inits the paths to be used during runtime.
+        /// </summary>
+        /// <param name="isCompiled">Defines if the current app is already compiled.</param>
         internal static void Init(bool isCompiled)
         {
             if (!isCompiled)
@@ -26,6 +42,10 @@ namespace API
             CheckDirectories(isCompiled);
         }
 
+        /// <summary>
+        /// Check if all the needed directories are created.
+        /// </summary>
+        /// <param name="isCompiled">Defines if the current app is already compiled.</param>
         static void CheckDirectories(bool isCompiled)
         {
             if (!isCompiled)

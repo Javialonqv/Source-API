@@ -7,24 +7,44 @@ using System.Threading.Tasks;
 
 namespace API
 {
+    /// <summary>
+    /// Toolkit for loading resources files inside of the "Content" folder.
+    /// </summary>
     public static class Resources
     {
+        /// <summary>
+        /// Contains all the files inside of the "Content" folder and subfolders.
+        /// It have the path to the file (with "Content" as root) as key and the full file path as value.
+        /// </summary>
         static Dictionary<string, string> files = new Dictionary<string, string>();
 
+        /// <summary>
+        /// Inits the Resources class and files to be used during runtime.
+        /// </summary>
+        /// <param name="isCompiled">Defines if the current app is already compiled.</param>
         internal static void Init(bool isCompiled)
         {
-            if (!isCompiled)
+            if (!isCompiled) // If NOT compiled with the Source compiler:
             {
                 List<string> folderContents = Directory.GetFiles(Paths.contentFolderPath, "*.*",
-                    SearchOption.AllDirectories).ToList();
+                    SearchOption.AllDirectories).ToList(); // Get all the files inside content folder.
                 foreach (string filePath in folderContents)
                 {
+                    // Get only the string after the "Content" folder as key:
                     string key = filePath.Substring(filePath.IndexOf("Content") + "Content".Length + 1);
+                    // Add the key and full file path into the files list:
                     files.Add(key.Replace('\\', '/'), filePath);
                 }
             }
         }
 
+        /// <summary>
+        /// Loads a specified file from the "Content" folder if exists.
+        /// </summary>
+        /// <typeparam name="T">The type of the value to return.</typeparam>
+        /// <param name="fileName">The name of the file, can be with/without extension, or a file path starting with "Content"
+        /// as the root folder.</param>
+        /// <returns></returns>
         public static T Load<T>(string fileName)
         {
             foreach (var pair in files)

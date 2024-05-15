@@ -8,32 +8,48 @@ using Newtonsoft.Json;
 
 namespace API
 {
+    /// <summary>
+    /// Config class to save the Source API configurations.
+    /// </summary>
     internal class ConfigFile
     {
+        /// <summary>
+        /// Specifies the current instance of the class loaded in memory.
+        /// </summary>
         public static ConfigFile loaded = null;
+        /// <summary>
+        /// Specifies whether the logger will be enabled or not.
+        /// </summary>
         public bool loggerEnabled = false;
+        /// <summary>
+        /// Specifies whether the logger will be enabled or not with exceptions control.
+        /// </summary>
         public static bool LoggerEnabled
         {
             get
             {
-                if (loaded == null) { return false; }
-                else { return loaded.loggerEnabled; }
+                if (loaded == null) { return false; } // Returns a default value if there's no JSON loaded yet.
+                else { return loaded.loggerEnabled; } // Otherwise, return the value of the JSON file.
             }
         }
 
-        public ConfigFile() { }
-        public ConfigFile(bool loggerEnabled)
+        ConfigFile() { }
+        ConfigFile(bool loggerEnabled)
         {
             this.loggerEnabled = loggerEnabled;
         }
 
-        // Inits an instance of ConfigFile by reading a JSON to be used later.
+        /// <summary>
+        /// Inits an instance of the ConfigFile class by reading the SourceConfig.json file.
+        /// </summary>
+        /// <param name="jsonFilePath">The path of the SourceConfig.json file.</param>
         public static void Init(string jsonFilePath)
         {
-            if (loaded == null)
+            if (loaded == null) // This method only can be called when there's no JSON loaded yet.
             {
                 string content = File.ReadAllText(jsonFilePath);
                 ConfigFile config = new ConfigFile();
+                // Set up the JSON reader to throw an exception if the JSON can't be readed.
                 JsonSerializerSettings settings = new JsonSerializerSettings() { MissingMemberHandling = MissingMemberHandling.Error };
                 try
                 {
