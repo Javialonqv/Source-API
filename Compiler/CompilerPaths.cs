@@ -11,7 +11,10 @@ namespace Compiler
     {
         public static string apiCsprojPath = "";
         public static string appCsprojPath = "";
+        public static string sourceConfigFilePath = "";
+        public static string projContentPath = "";
         public static string loggerCsprojPath = "";
+
         public static string buildPath = "";
         public static string dataPath = "";
         public static string tempDataPath = "";
@@ -24,8 +27,11 @@ namespace Compiler
                 "API", "API.csproj");
             appCsprojPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
                 "App", "App.csproj");
+            sourceConfigFilePath = Path.Combine(Path.GetDirectoryName(appCsprojPath), "SourceConfig.json");
+            projContentPath = Path.Combine(Path.GetDirectoryName(appCsprojPath), "Content");
             loggerCsprojPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
                 "Logger", "Logger.csproj");
+
             buildPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
                 "Builds", "ReleaseBuild");
             dataPath = Path.Combine(buildPath, "data");

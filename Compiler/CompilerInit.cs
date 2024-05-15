@@ -10,10 +10,20 @@ namespace Compiler
         static void Main(string[] args)
         {
             CompilerPaths.Init();
-            DLLCompiler.BuildDLL(CompilerPaths.apiCsprojPath, CompilerPaths.tempDataPath, true, true);
-            DLLCompiler.BuildDLL(CompilerPaths.appCsprojPath, CompilerPaths.tempDataPath, true, true);
-            DLLCompiler.BuildDLL(CompilerPaths.loggerCsprojPath, CompilerPaths.tempDataPath, true, false);
+            //DLLCompiler.Build(CompilerPaths.apiCsprojPath, CompilerPaths.tempDataPath, true, true);
+
+            Console.WriteLine("[*] Compiling App Project...");
+            DLLCompiler.Build(CompilerPaths.appCsprojPath, CompilerPaths.tempDataPath, true, true);
+            Console.WriteLine("[*] Compiling Logger...");
+            DLLCompiler.Build(CompilerPaths.loggerCsprojPath, CompilerPaths.tempDataPath, true, false);
+            Console.WriteLine("[*] Saving needed files...");
             DLLCompiler.CopyDLLsToDataFolder(CompilerPaths.tempDataPath, CompilerPaths.dataPath);
+            Console.WriteLine("[*] Buiding Content folder...");
+            DLLCompiler.BuildContentFolder(CompilerPaths.projContentPath, CompilerPaths.contentPath);
+            Console.WriteLine("[*] Creating SRC file...");
+            CompilerConfigFile.Init(CompilerPaths.sourceConfigFilePath);
+            Executable.CreateSRCFile(CompilerConfigFile.loaded, CompilerPaths.srcFilePath);
+            Console.WriteLine("[*] FINISH!!!");
             Console.ReadKey();
         }
     }

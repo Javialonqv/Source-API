@@ -11,7 +11,7 @@ namespace Compiler
 {
     internal class DLLCompiler
     {
-        public static void BuildDLL(string csprojPath, string outputPath, bool showLog, bool buildAsLibrary)
+        public static void Build(string csprojPath, string outputPath, bool showLog, bool buildAsLibrary)
         {
             string argument = "";
             if (buildAsLibrary) { argument = $"build \"{csprojPath}\" -o \"{outputPath}\" -c Release /p:DebugType=none /p:OutputType=Library"; }
@@ -59,6 +59,18 @@ namespace Compiler
                 File.Copy(file, destFile, true);
             }
             Directory.Delete(tempPath, true);
+        }
+
+        public static void BuildContentFolder(string projContentPath, string contentPath)
+        {
+            Directory.CreateDirectory(contentPath);
+            foreach (string file in Directory.GetFiles(projContentPath, "*.*", SearchOption.AllDirectories))
+            {
+                string newFilePath = Path.Combine(contentPath, file.Substring(projContentPath.Length + 1));
+                if (!Directory.Exists(Path.GetDirectoryName(newFilePath)))
+                    { Directory.CreateDirectory(Path.GetDirectoryName(newFilePath)); }
+                File.Copy(file, newFilePath, true);
+            }
         }
     }
 }

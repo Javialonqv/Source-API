@@ -49,6 +49,7 @@ namespace API
         {
             foreach (var pair in files)
             {
+                // If the fileName equals to the key, or the name with/without extension:
                 if (pair.Key == fileName || Path.GetFileName(pair.Key) == fileName ||
                     Path.GetFileNameWithoutExtension(pair.Key) == fileName)
                 {
