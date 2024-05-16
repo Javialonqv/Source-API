@@ -398,7 +398,7 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Source API exeptions
-Builds/DebugBuild/
-Builds/ReleaseBuild/
-Logger/DebugLoggerBuild/
-Compiler/Compiler
+Builds/DebugBuild/*
+Builds/ReleaseBuild/*
+Logger/DebugLoggerBuild/*
+Compiler/Compiler/*

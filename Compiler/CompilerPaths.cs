@@ -21,6 +21,7 @@ namespace Compiler
         public static string tempDataPath = "";
         public static string contentPath = "";
         public static string srcFilePath = "";
+        public static string resourcesDataFilePath = "";
 
         public static void Init()
         {
@@ -38,6 +39,7 @@ namespace Compiler
             tempDataPath = Path.Combine(dataPath, "temp");
             contentPath = Path.Combine(buildPath, "Content");
             srcFilePath = Path.Combine(buildPath, "default.src");
+            resourcesDataFilePath = Path.Combine(contentPath, "resources.data");
         }
     }
 }

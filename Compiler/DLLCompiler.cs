@@ -71,13 +71,22 @@ namespace Compiler
         public static void BuildContentFolder(string projContentPath, string contentPath)
         {
             Directory.CreateDirectory(contentPath);
+            Dictionary<string, string> resources = new Dictionary<string, string>();
             foreach (string file in Directory.GetFiles(projContentPath, "*.*", SearchOption.AllDirectories))
             {
-                string newFilePath = Path.Combine(contentPath, file.Substring(projContentPath.Length + 1));
+                string randomName = ResourcesData.GenerateRandomName();
+                string newFilePath = Path.Combine(contentPath, randomName);
                 if (!Directory.Exists(Path.GetDirectoryName(newFilePath)))
                     { Directory.CreateDirectory(Path.GetDirectoryName(newFilePath)); }
                 File.Copy(file, newFilePath, true);
+
+                // Get only the string after the "Content" folder as key:
+                string key = file.Substring(file.IndexOf("Content") + "Content".Length + 1);
+                // Add the key and new file path into the resources list:
+                string newFileName = randomName;
+                resources.Add(key.Replace('\\', '/'), newFileName);
             }
+            ResourcesData.CreateResourcesData(resources, CompilerPaths.resourcesDataFilePath);
         }
     }
 }
