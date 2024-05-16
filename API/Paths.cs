@@ -33,8 +33,10 @@ namespace API
         {
             if (!isCompiled)
             {
-                sourceConfigFilePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
-                    "App", "SourceConfig.json");
+                /*sourceConfigFilePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
+                    "App", "SourceConfig.json");*/
+                sourceConfigFilePath = Directory.GetFiles(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
+                    "SourceConfig.json", SearchOption.AllDirectories)[0];
                 loggerExecutableFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Logger.exe");
                 contentFolderPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
                     "App", "Content");

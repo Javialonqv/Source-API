@@ -9,11 +9,12 @@ namespace Compiler
 {
     internal static class CompilerPaths
     {
+        public static string solutionPath = "";
         public static string apiCsprojPath = "";
-        public static string appCsprojPath = "";
         public static string sourceConfigFilePath = "";
         public static string projContentPath = "";
         public static string loggerCsprojPath = "";
+        public static string compilerPrefJsonPath = "";
 
         public static string buildPath = "";
         public static string dataPath = "";
@@ -23,14 +24,13 @@ namespace Compiler
 
         public static void Init()
         {
-            apiCsprojPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
-                "API", "API.csproj");
-            appCsprojPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
-                "App", "App.csproj");
-            sourceConfigFilePath = Path.Combine(Path.GetDirectoryName(appCsprojPath), "SourceConfig.json");
-            projContentPath = Path.Combine(Path.GetDirectoryName(appCsprojPath), "Content");
-            loggerCsprojPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
-                "Logger", "Logger.csproj");
+            solutionPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            apiCsprojPath = Path.Combine(solutionPath, "API", "API.csproj");
+            sourceConfigFilePath = Directory.GetFiles(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
+                "SourceConfig.json", SearchOption.AllDirectories)[0];
+            projContentPath = Path.Combine(Path.GetDirectoryName(sourceConfigFilePath), "Content");
+            loggerCsprojPath = Path.Combine(solutionPath, "Logger", "Logger.csproj");
+            compilerPrefJsonPath = Path.Combine(solutionPath, "Compiler", "preferences.json");
 
             buildPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
                 "Builds", "ReleaseBuild");

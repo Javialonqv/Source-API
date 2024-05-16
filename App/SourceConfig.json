@@ -1,3 +1,4 @@
 {
-  "loggerEnabled": true
+  "loggerEnabled": true,
+  "mainAppProjName": "App"
 }

@@ -11,11 +11,9 @@ namespace Compiler
 {
     internal class DLLCompiler
     {
-        public static void Build(string csprojPath, string outputPath, bool showLog, bool buildAsLibrary)
+        public static void BuildAsDLL(string csprojPath, string outputPath, bool showLog)
         {
-            string argument = "";
-            if (buildAsLibrary) { argument = $"build \"{csprojPath}\" -o \"{outputPath}\" -c Release /p:DebugType=none /p:OutputType=Library"; }
-            else { argument = $"build \"{csprojPath}\" -o \"{outputPath}\" -c Release /p:DebugType=none /p:OutputType=Exe"; }
+            string argument = $"build \"{csprojPath}\" -o \"{outputPath}\" -c Release /p:DebugType=none /p:OutputType=Library";
 
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
@@ -34,19 +32,28 @@ namespace Compiler
                 if (showLog) { process.BeginOutputReadLine(); }
                 process.WaitForExit();
             }
+        }
+        public static void BuildAsExe(string csprojPath, string outputPath, bool showLog)
+        {
+            string argument = $"build \"{csprojPath}\" -o \"{outputPath}\" -c Release /p:DebugType=none /p:OutputType=Exe";
 
-            /*var globalProperties = new Dictionary<string, string>
+            ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                { "OutputPath", outputPath },
-                { "Configuration", "Release" },
-                { "DebugType", "none" },
-                { "OutputType", "Library" },
+                FileName = "dotnet",
+                Arguments = argument,
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = false
             };
-            var buildParameters = new BuildParameters();
-            if (showLog) { buildParameters.Loggers = new[] { new ConsoleLogger() }; }
 
-            var buildRequestData = new BuildRequestData(csprojPath, globalProperties, "4.0", new[] { "Build" }, null);
-            var buildResult = BuildManager.DefaultBuildManager.Build(buildParameters, buildRequestData);*/
+            using (Process process = new Process())
+            {
+                process.StartInfo = startInfo;
+                if (showLog) { process.OutputDataReceived += (sender, e) => Console.WriteLine(e.Data); }
+                process.Start();
+                if (showLog) { process.BeginOutputReadLine(); }
+                process.WaitForExit();
+            }
         }
 
         public static void CopyDLLsToDataFolder(string tempPath, string dataPath)

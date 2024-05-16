@@ -396,3 +396,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Source API exeptions
+Builds/DebugBuild/
+Builds/ReleaseBuild/
+Logger/DebugLoggerBuild/
+Compiler/Compiler

@@ -12,6 +12,7 @@ namespace Compiler
     internal class Executable
     {
         public CompilerConfigFile configFile;
+        public string startProjName;
 
         public static void CreateSRCFile(CompilerConfigFile configFile, string srcFilePath)
         {

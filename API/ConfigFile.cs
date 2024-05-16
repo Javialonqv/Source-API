@@ -32,6 +32,10 @@ namespace API
                 else { return loaded.loggerEnabled; } // Otherwise, return the value of the JSON file.
             }
         }
+        /// <summary>
+        /// Specifies the main project where the SourceConfig.json file and Content folder are located.
+        /// </summary>
+        public string mainAppProjName = "";
 
         ConfigFile() { }
         ConfigFile(bool loggerEnabled)

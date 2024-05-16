@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Compiler
 {
@@ -10,12 +13,9 @@ namespace Compiler
         static void Main(string[] args)
         {
             CompilerPaths.Init();
-            //DLLCompiler.Build(CompilerPaths.apiCsprojPath, CompilerPaths.tempDataPath, true, true);
 
-            Console.WriteLine("[*] Compiling App Project...");
-            DLLCompiler.Build(CompilerPaths.appCsprojPath, CompilerPaths.tempDataPath, true, true);
-            Console.WriteLine("[*] Compiling Logger...");
-            DLLCompiler.Build(CompilerPaths.loggerCsprojPath, CompilerPaths.tempDataPath, true, false);
+            Console.WriteLine("[*] Compiling .csproj projects...");
+            BuildAllCsprojs();
             Console.WriteLine("[*] Saving needed files...");
             DLLCompiler.CopyDLLsToDataFolder(CompilerPaths.tempDataPath, CompilerPaths.dataPath);
             Console.WriteLine("[*] Buiding Content folder...");
@@ -25,6 +25,28 @@ namespace Compiler
             Executable.CreateSRCFile(CompilerConfigFile.loaded, CompilerPaths.srcFilePath);
             Console.WriteLine("[*] FINISH!!!");
             Console.ReadKey();
+        }
+
+        static T ReadJSONProperty<T>(string jsonFilePath, string propertyName)
+        {
+            string input = File.ReadAllText(jsonFilePath);
+            JObject jsonObj = JObject.Parse(input);
+            return jsonObj[propertyName].Value<T>();
+        }
+
+        static void BuildAllCsprojs()
+        {
+            foreach (string csprojPath in Directory.GetFiles(CompilerPaths.solutionPath, "*.csproj", SearchOption.AllDirectories))
+            {
+                if (Path.GetFileName(csprojPath) == "Compiler.csproj") { continue; }
+                Console.WriteLine($"[*] Compiling {Path.GetFileName(csprojPath)}...");
+
+                bool showCompilerLog = ReadJSONProperty<bool>(CompilerPaths.compilerPrefJsonPath, "showCompilerLog");
+                if (Path.GetFileName(csprojPath) == "Logger.csproj")
+                { DLLCompiler.BuildAsExe(csprojPath, CompilerPaths.tempDataPath, showCompilerLog); }
+                else
+                { DLLCompiler.BuildAsDLL(csprojPath, CompilerPaths.tempDataPath, showCompilerLog); }
+            }
         }
     }
 }
