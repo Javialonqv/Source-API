@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Reflection;
 
 namespace API
 {
@@ -47,22 +49,36 @@ namespace API
         /// Inits an instance of the ConfigFile class by reading the SourceConfig.json file.
         /// </summary>
         /// <param name="jsonFilePath">The path of the SourceConfig.json file.</param>
-        public static void Init(string jsonFilePath)
+        public static void Init(bool isCompiled, string jsonFilePath)
         {
             if (loaded == null) // This method only can be called when there's no JSON loaded yet.
             {
-                string content = File.ReadAllText(jsonFilePath);
-                ConfigFile config = new ConfigFile();
-                // Set up the JSON reader to throw an exception if the JSON can't be readed.
-                JsonSerializerSettings settings = new JsonSerializerSettings() { MissingMemberHandling = MissingMemberHandling.Error };
-                try
+                if (!isCompiled)
                 {
-                    config = JsonConvert.DeserializeObject<ConfigFile>(content);
-                    loaded = config;
+                    string content = File.ReadAllText(jsonFilePath);
+                    ConfigFile config = new ConfigFile();
+                    // Set up the JSON reader to throw an exception if the JSON can't be readed.
+                    JsonSerializerSettings settings = new JsonSerializerSettings() { MissingMemberHandling = MissingMemberHandling.Error };
+                    try
+                    {
+                        config = JsonConvert.DeserializeObject<ConfigFile>(content);
+                        loaded = config;
+                    }
+                    catch
+                    {
+                        ExceptionsManager.CantDeserealizeSourceConfigFile(jsonFilePath);
+                    }
                 }
-                catch
+                else
                 {
-                    ExceptionsManager.CantDeserealizeSourceConfigFile(jsonFilePath);
+                    // In this case, jsonFilePath is the path to the default.src file:
+                    FileStream fs = new FileStream(jsonFilePath, FileMode.Open);
+                    BinaryFormatter bf = new BinaryFormatter();
+                    Dictionary<string, object> deserialized = (Dictionary<string, object>)bf.Deserialize(fs);
+                    ConfigFile config = new ConfigFile();
+                    config.loggerEnabled = (bool)deserialized["loggerEnabled"];
+                    config.mainAppProjName = (string)deserialized["mainAppProjName"];
+                    loaded = config;
                 }
             }
         }

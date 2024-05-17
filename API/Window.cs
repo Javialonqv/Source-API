@@ -58,7 +58,8 @@ namespace API
                 Window.height = height;
             }
             catch (Exception e) { ExceptionsManager.ErrorResizingWindow(e); }
-            Window.title = windowTitle;
+            // In this case, DON'T put exception, this only happen internally during API initialization.
+            if (windowTitle != "") { Window.title = windowTitle; }
         }
 
         /// <summary>

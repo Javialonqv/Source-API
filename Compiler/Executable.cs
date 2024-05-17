@@ -12,16 +12,15 @@ namespace Compiler
     internal class Executable
     {
         public CompilerConfigFile configFile;
-        public string startProjName;
 
         public static void CreateSRCFile(CompilerConfigFile configFile, string srcFilePath)
         {
-            Executable exe = new Executable();
-            exe.configFile = configFile;
-
             FileStream fs = new FileStream(srcFilePath, FileMode.Create);
             BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(fs, exe);
+            Dictionary<string, object> toSerialize = new Dictionary<string, object>();
+            toSerialize.Add("loggerEnabled", configFile.loggerEnabled);
+            toSerialize.Add("mainAppProjName", configFile.mainAppProjName);
+            bf.Serialize(fs, toSerialize);
         }
     }
 }

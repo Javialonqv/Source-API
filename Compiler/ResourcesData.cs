@@ -19,12 +19,9 @@ namespace Compiler
 
         public static void CreateResourcesData(Dictionary<string, string> resources, string resourcesDataPath)
         {
-            ResourcesData data = new ResourcesData();
-            data.resources = resources;
-
             FileStream fs = new FileStream(resourcesDataPath, FileMode.Create);
             BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(fs, data);
+            bf.Serialize(fs, resources);
         }
 
         public static string GenerateRandomName()

@@ -12,7 +12,7 @@ namespace App
         static void Main(string[] args)
         {
             Application.Init("Test App");
-            Debug.LogInfo("HELLO WORLD!");
+            Debug.LogInfo("Test Message.");
             Debug.LogWarning(Resources.Load<string>("HELLO_WORLD"));
             Console.ReadKey();
         }

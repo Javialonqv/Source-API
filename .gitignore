@@ -402,3 +402,4 @@ Builds/DebugBuild/*
 Builds/ReleaseBuild/*
 Logger/DebugLoggerBuild/*
 Compiler/Compiler/*
+Compiler/Compiler/Compiler.exe

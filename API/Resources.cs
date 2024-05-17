@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace API
 {
@@ -36,14 +37,26 @@ namespace API
                     files.Add(key.Replace('\\', '/'), filePath);
                 }
             }
+            else
+            {
+                List<string> folderContents = Directory.GetFiles(Paths.contentFolderPath, "*.*").ToList();
+                FileStream fs = new FileStream(Paths.resourcesDataFilePath, FileMode.Open);
+                BinaryFormatter bf = new BinaryFormatter();
+                Dictionary<string, string> resources = (Dictionary<string, string>)bf.Deserialize(fs);
+                foreach (var pair in resources)
+                {
+                    string filePath = Path.Combine(Paths.contentFolderPath, pair.Value);
+                    files.Add(pair.Key, filePath);
+                }
+            }
         }
 
         /// <summary>
         /// Loads a specified file from the "Content" folder if exists.
         /// </summary>
         /// <typeparam name="T">The type of the value to return.</typeparam>
-        /// <param name="fileName">The name of the file, can be with/without extension, or a file path starting with "Content"
-        /// as the root folder.</param>
+        /// <param name="fileName">The name of the file, can be with/without extension, or a file path relative to the
+        /// "Content" folder.</param>
         /// <returns></returns>
         public static T Load<T>(string fileName)
         {

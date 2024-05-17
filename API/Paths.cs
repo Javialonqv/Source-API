@@ -24,12 +24,16 @@ namespace API
         /// Points to the "Content" folder.
         /// </summary>
         public static string contentFolderPath = "";
+        /// <summary>
+        /// Points to the "resources.data" file.
+        /// </summary>
+        public static string resourcesDataFilePath = "";
 
         /// <summary>
         /// Inits the paths to be used during runtime.
         /// </summary>
         /// <param name="isCompiled">Defines if the current app is already compiled.</param>
-        internal static void Init(bool isCompiled)
+        internal static void Init(bool isCompiled, string srcFilePath)
         {
             if (!isCompiled)
             {
@@ -38,6 +42,14 @@ namespace API
                 loggerExecutableFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Logger.exe");
                 contentFolderPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
                     "App", "Content");
+                resourcesDataFilePath = "";
+            }
+            else
+            {
+                sourceConfigFilePath = srcFilePath;
+                loggerExecutableFilePath = Path.Combine(Path.GetDirectoryName(srcFilePath), "data", "Logger.exe");
+                contentFolderPath = Path.Combine(Path.GetDirectoryName(srcFilePath), "Content");
+                resourcesDataFilePath = Path.Combine(contentFolderPath, "resources.data");
             }
             CheckDirectories(isCompiled);
         }
