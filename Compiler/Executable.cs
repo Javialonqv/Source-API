@@ -20,6 +20,7 @@ namespace Compiler
             Dictionary<string, object> toSerialize = new Dictionary<string, object>();
             toSerialize.Add("loggerEnabled", configFile.loggerEnabled);
             toSerialize.Add("mainAppProjName", configFile.mainAppProjName);
+            toSerialize.Add("mainMethodClassName", configFile.mainMethodClassName);
             bf.Serialize(fs, toSerialize);
         }
     }

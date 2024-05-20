@@ -37,6 +37,10 @@ namespace Compiler
         /// Specifies the main project where the SourceConfig.json file and Content folder are located.
         /// </summary>
         public string mainAppProjName = "";
+        /// <summary>
+        /// Specifies the class name where the Main method is located.
+        /// </summary>
+        public string mainMethodClassName = "";
 
         CompilerConfigFile() { }
         CompilerConfigFile(bool loggerEnabled)

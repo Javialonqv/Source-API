@@ -38,6 +38,10 @@ namespace API
         /// Specifies the main project where the SourceConfig.json file and Content folder are located.
         /// </summary>
         public string mainAppProjName = "";
+        /// <summary>
+        /// Specifies the class name where the Main method is located.
+        /// </summary>
+        public string mainMethodClassName = "";
 
         ConfigFile() { }
         ConfigFile(bool loggerEnabled)
@@ -78,6 +82,7 @@ namespace API
                     ConfigFile config = new ConfigFile();
                     config.loggerEnabled = (bool)deserialized["loggerEnabled"];
                     config.mainAppProjName = (string)deserialized["mainAppProjName"];
+                    config.mainMethodClassName = (string)deserialized["mainMethodClassName"];
                     loaded = config;
                 }
             }

@@ -1,4 +1,5 @@
 {
   "loggerEnabled": true,
-  "mainAppProjName": "App"
+  "mainAppProjName": "App",
+  "mainMethodClassName": "Program"
 }
