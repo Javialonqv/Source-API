@@ -16,12 +16,14 @@ namespace Logger
             Connection:
             using (var server = new NamedPipeServerStream("SourceLogger"))
             {
+                // Waits for the connection with a Source App.
                 Console.WriteLine("<Waiting for connection with the app...>");
                 server.WaitForConnection();
                 Console.Clear();
 
                 using (var reader = new StreamReader(server))
                 {
+                    // A loop to check if a new message to print exists.
                     while (true)
                     {
                         if (!server.IsConnected)

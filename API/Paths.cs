@@ -32,9 +32,11 @@ namespace API
         /// <summary>
         /// Inits the paths to be used during runtime.
         /// </summary>
-        /// <param name="isCompiled">Defines if the current app is already compiled.</param>
+        /// <param name="isCompiled">Specifies if the App is compiled with the Source Compiler.</param>
+        /// <param name="srcFilePath">Specifies the path of the default.src file. Empty if isCompiled is false.</param>
         internal static void Init(bool isCompiled, string srcFilePath)
         {
+            // If NOT compiled, get all the paths relative to the executing exe, otherwise, relative to the srcFilePath.
             if (!isCompiled)
             {
                 sourceConfigFilePath = Directory.GetFiles(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,

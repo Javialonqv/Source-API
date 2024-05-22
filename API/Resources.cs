@@ -22,7 +22,7 @@ namespace API
         /// <summary>
         /// Inits the Resources class and files to be used during runtime.
         /// </summary>
-        /// <param name="isCompiled">Defines if the current app is already compiled.</param>
+        /// <param name="isCompiled">Specifies if the App is compiled with the Source Compiler.</param>
         internal static void Init(bool isCompiled)
         {
             if (!isCompiled) // If NOT compiled with the Source compiler:
@@ -37,12 +37,13 @@ namespace API
                     files.Add(key.Replace('\\', '/'), filePath);
                 }
             }
-            else
+            else // If compiled with the Source Compiler:
             {
-                List<string> folderContents = Directory.GetFiles(Paths.contentFolderPath, "*.*").ToList();
+                // Deserealize the resources.data file.
                 FileStream fs = new FileStream(Paths.resourcesDataFilePath, FileMode.Open);
                 BinaryFormatter bf = new BinaryFormatter();
                 Dictionary<string, string> resources = (Dictionary<string, string>)bf.Deserialize(fs);
+                // Foreach pair in the resources file, add the relative path as key and the full file path as value.
                 foreach (var pair in resources)
                 {
                     string filePath = Path.Combine(Paths.contentFolderPath, pair.Value);
@@ -77,10 +78,17 @@ namespace API
             return default(T);
         }
 
+        /// <summary>
+        /// Loads a specified file from the "Content" folder if exists.
+        /// </summary>
+        /// <param name="fileName">The name of the file, can be with/without extension, or a file path relative to the
+        /// "Content" folder.</param>
+        /// <returns></returns>
         public static object Load(string fileName)
         {
             foreach (var pair in files)
             {
+                // If the fileName equals to the key, or the name with/without extension:
                 if (pair.Key == fileName || Path.GetFileName(pair.Key) == fileName ||
                     Path.GetFileNameWithoutExtension(pair.Key) == fileName)
                 {

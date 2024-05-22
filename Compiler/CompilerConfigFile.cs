@@ -42,12 +42,6 @@ namespace Compiler
         /// </summary>
         public string mainMethodClassName = "";
 
-        CompilerConfigFile() { }
-        CompilerConfigFile(bool loggerEnabled)
-        {
-            this.loggerEnabled = loggerEnabled;
-        }
-
         /// <summary>
         /// Inits an instance of the ConfigFile class by reading the SourceConfig.json file.
         /// </summary>

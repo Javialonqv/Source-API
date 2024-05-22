@@ -12,7 +12,7 @@ namespace API
     public static class Application
     {
         /// <summary>
-        /// Represents if the Source API has been initialized.
+        /// Specifies if the Source API has been initialized.
         /// </summary>
         internal static bool initialized = false;
 
@@ -71,11 +71,10 @@ namespace API
         }
 
         /// <summary>
-        /// Initialize the Source API. Needs to be called at the start of the runtime.
+        /// Initialize the Source API. Only needs to be called via the Source Launcher.
         /// </summary>
         internal static void InitWithSRCFile(string srcFilePath)
         {
-            // if (initialized) { return; } // This method can only be called once.
             Console.WriteLine("Initializing Engine...");
             AppDomain.CurrentDomain.ProcessExit += (sender, args) => Debug.KillLogger(); // Kills the logger on exit.
             initialized = true;

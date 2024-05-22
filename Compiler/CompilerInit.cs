@@ -12,9 +12,11 @@ namespace Compiler
     {
         static void Main(string[] args)
         {
+            // Init the paths and delete the log file if it exists.
             CompilerPaths.Init();
             DLLCompiler.DeleteLogFile();
 
+            // Delte the previous build ONLY if that property is true in the preferences.json file.
             if (ReadJSONProperty<bool>(CompilerPaths.compilerPrefJsonPath, "deletePreviousBuild"))
             {
                 Console.WriteLine("[*] Deleting previous build...");
@@ -54,6 +56,7 @@ namespace Compiler
 
         static void BuildAllCsprojs()
         {
+            // This looks for all the .csproj in the project, except the Compiler, the Logger is compiled as Exe, and the rest as DLL.
             foreach (string csprojPath in Directory.GetFiles(CompilerPaths.solutionPath, "*.csproj", SearchOption.AllDirectories))
             {
                 if (Path.GetFileName(csprojPath) == "Compiler.csproj") { continue; }

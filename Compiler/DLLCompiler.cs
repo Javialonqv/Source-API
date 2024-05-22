@@ -11,6 +11,14 @@ namespace Compiler
 {
     internal class DLLCompiler
     {
+        /// <summary>
+        /// Builds a .csproj file as DLL.
+        /// </summary>
+        /// <param name="csprojPath">The path to the .csproj file.</param>
+        /// <param name="outputPath">The path to the output build path.</param>
+        /// <param name="showLog">Specifies if should show the log into the console.</param>
+        /// <param name="saveLog">Specifies if needs to save a log file.</param>
+        /// <returns>Returns if the build has been successfully.</returns>
         public static bool BuildAsDLL(string csprojPath, string outputPath, bool showLog, bool saveLog)
         {
             string argument = $"build \"{csprojPath}\" -o \"{outputPath}\" -c Release /p:DebugType=none /p:OutputType=Library";
@@ -35,6 +43,14 @@ namespace Compiler
                 return process.ExitCode == 0;
             }
         }
+        /// <summary>
+        /// Builds a .csproj file as an executable.
+        /// </summary>
+        /// <param name="csprojPath">The path to the .csproj file.</param>
+        /// <param name="outputPath">The path to the output build path.</param>
+        /// <param name="showLog">Specifies if should show the log into the console.</param>
+        /// <param name="saveLog">Specifies if needs to save a log file.</param>
+        /// <returns>Returns if the build has been successfully.</returns>
         public static bool BuildAsExe(string csprojPath, string outputPath, bool showLog, bool saveLog)
         {
             string argument = $"build \"{csprojPath}\" -o \"{outputPath}\" -c Release /p:DebugType=none /p:OutputType=Exe";
@@ -60,6 +76,11 @@ namespace Compiler
             }
         }
 
+        /// <summary>
+        /// Copy only the needed dlls to the data folder.
+        /// </summary>
+        /// <param name="tempPath">The path to the temp folder.</param>
+        /// <param name="dataPath">The path to the data folder.</param>
         public static void CopyDLLsToDataFolder(string tempPath, string dataPath)
         {
             List<string> tempPathFiles = Directory.GetFiles(tempPath, "*.dll").ToList();
@@ -72,6 +93,11 @@ namespace Compiler
             Directory.Delete(tempPath, true);
         }
 
+        /// <summary>
+        /// Builds the content folder.
+        /// </summary>
+        /// <param name="projContentPath">The Content folder inside of the project.</param>
+        /// <param name="contentPath">The path to the Content builded folder.</param>
         public static void BuildContentFolder(string projContentPath, string contentPath)
         {
             Directory.CreateDirectory(contentPath);
@@ -93,10 +119,17 @@ namespace Compiler
             ResourcesData.CreateResourcesData(resources, CompilerPaths.resourcesDataFilePath);
         }
 
+        /// <summary>
+        /// Deletes the log file.
+        /// </summary>
         public static void DeleteLogFile()
         {
             if (File.Exists(CompilerPaths.logFilePath)) { File.Delete(CompilerPaths.logFilePath); }
         }
+        /// <summary>
+        /// Writes a string into the log file.
+        /// </summary>
+        /// <param name="toWrite"></param>
         static void WriteOnLogFile(string toWrite)
         {
             List<string> logFileContent = new List<string>();

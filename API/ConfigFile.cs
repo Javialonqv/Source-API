@@ -43,20 +43,16 @@ namespace API
         /// </summary>
         public string mainMethodClassName = "";
 
-        ConfigFile() { }
-        ConfigFile(bool loggerEnabled)
-        {
-            this.loggerEnabled = loggerEnabled;
-        }
-
         /// <summary>
         /// Inits an instance of the ConfigFile class by reading the SourceConfig.json file.
         /// </summary>
+        /// <param name="isCompiled">Specifies if the App is compiled with the Source Compiler.</param>
         /// <param name="jsonFilePath">The path of the SourceConfig.json file.</param>
         public static void Init(bool isCompiled, string jsonFilePath)
         {
             if (loaded == null) // This method only can be called when there's no JSON loaded yet.
             {
+                // If its compiled it needs to deserealize the default.src file, otherwise, just read the SourceConfig.json file.
                 if (!isCompiled)
                 {
                     string content = File.ReadAllText(jsonFilePath);
@@ -78,6 +74,7 @@ namespace API
                     // In this case, jsonFilePath is the path to the default.src file:
                     FileStream fs = new FileStream(jsonFilePath, FileMode.Open);
                     BinaryFormatter bf = new BinaryFormatter();
+                    // Deserealize the file and convert every object into a ConfigFile class:
                     Dictionary<string, object> deserialized = (Dictionary<string, object>)bf.Deserialize(fs);
                     ConfigFile config = new ConfigFile();
                     config.loggerEnabled = (bool)deserialized["loggerEnabled"];
