@@ -14,6 +14,11 @@ namespace Compiler
         {
             CompilerPaths.Init();
 
+            if (ReadJSONProperty<bool>(CompilerPaths.compilerPrefJsonPath, "deletePreviousBuild"))
+            {
+                Console.WriteLine("[*] Deleting previous build...");
+                DeletePreviousBuild();
+            }
             Console.WriteLine("[*] Compiling .csproj projects...");
             BuildAllCsprojs();
             Console.WriteLine("[*] Saving needed files...");
@@ -25,6 +30,18 @@ namespace Compiler
             Executable.CreateSRCFile(CompilerConfigFile.loaded, CompilerPaths.srcFilePath);
             Console.WriteLine("[*] FINISH!!!");
             Console.ReadKey();
+        }
+
+        static void DeletePreviousBuild()
+        {
+            foreach (string dir in Directory.GetDirectories(CompilerPaths.buildPath))
+            {
+                Directory.Delete(dir, true);
+            }
+            foreach (string dir in Directory.GetFiles(CompilerPaths.buildPath))
+            {
+                File.Delete(dir);
+            }
         }
 
         static T ReadJSONProperty<T>(string jsonFilePath, string propertyName)

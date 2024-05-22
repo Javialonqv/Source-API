@@ -1,3 +1,4 @@
 {
-  "showCompilerLog": false
+  "showCompilerLog": false,
+  "deletePreviousBuild": true
 }
