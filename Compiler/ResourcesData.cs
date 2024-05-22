@@ -28,7 +28,7 @@ namespace Compiler
         {
             string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             Random random = new Random();
-            int length = random.Next(10, 12);
+            int length = 16;
             return new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
