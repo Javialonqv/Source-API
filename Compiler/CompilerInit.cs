@@ -56,13 +56,26 @@ namespace Compiler
             foreach (string csprojPath in Directory.GetFiles(CompilerPaths.solutionPath, "*.csproj", SearchOption.AllDirectories))
             {
                 if (Path.GetFileName(csprojPath) == "Compiler.csproj") { continue; }
-                Console.WriteLine($"[*] Compiling {Path.GetFileName(csprojPath)}...");
+                Console.Write($"[*] Compiling {Path.GetFileName(csprojPath)}...");
 
                 bool showCompilerLog = ReadJSONProperty<bool>(CompilerPaths.compilerPrefJsonPath, "showCompilerLog");
+                bool compilationSuccess = false;
                 if (Path.GetFileName(csprojPath) == "Logger.csproj")
-                { DLLCompiler.BuildAsExe(csprojPath, CompilerPaths.tempDataPath, showCompilerLog); }
+                { compilationSuccess = DLLCompiler.BuildAsExe(csprojPath, CompilerPaths.tempDataPath, showCompilerLog); }
                 else
-                { DLLCompiler.BuildAsDLL(csprojPath, CompilerPaths.tempDataPath, showCompilerLog); }
+                { compilationSuccess = DLLCompiler.BuildAsDLL(csprojPath, CompilerPaths.tempDataPath, showCompilerLog); }
+
+                if (compilationSuccess)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("Done");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("FAILED!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
             }
         }
     }

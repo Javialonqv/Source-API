@@ -11,7 +11,7 @@ namespace Compiler
 {
     internal class DLLCompiler
     {
-        public static void BuildAsDLL(string csprojPath, string outputPath, bool showLog)
+        public static bool BuildAsDLL(string csprojPath, string outputPath, bool showLog)
         {
             string argument = $"build \"{csprojPath}\" -o \"{outputPath}\" -c Release /p:DebugType=none /p:OutputType=Library";
 
@@ -31,9 +31,10 @@ namespace Compiler
                 process.Start();
                 if (showLog) { process.BeginOutputReadLine(); }
                 process.WaitForExit();
+                return process.ExitCode == 0;
             }
         }
-        public static void BuildAsExe(string csprojPath, string outputPath, bool showLog)
+        public static bool BuildAsExe(string csprojPath, string outputPath, bool showLog)
         {
             string argument = $"build \"{csprojPath}\" -o \"{outputPath}\" -c Release /p:DebugType=none /p:OutputType=Exe";
 
@@ -53,6 +54,7 @@ namespace Compiler
                 process.Start();
                 if (showLog) { process.BeginOutputReadLine(); }
                 process.WaitForExit();
+                return process.ExitCode == 0;
             }
         }
 
