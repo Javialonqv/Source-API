@@ -1,4 +1,5 @@
 {
   "showCompilerLog": false,
-  "deletePreviousBuild": true
+  "deletePreviousBuild": true,
+  "saveLogFile": true
 }

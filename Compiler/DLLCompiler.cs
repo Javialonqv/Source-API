@@ -11,7 +11,7 @@ namespace Compiler
 {
     internal class DLLCompiler
     {
-        public static bool BuildAsDLL(string csprojPath, string outputPath, bool showLog)
+        public static bool BuildAsDLL(string csprojPath, string outputPath, bool showLog, bool saveLog)
         {
             string argument = $"build \"{csprojPath}\" -o \"{outputPath}\" -c Release /p:DebugType=none /p:OutputType=Library";
 
@@ -28,13 +28,14 @@ namespace Compiler
             {
                 process.StartInfo = startInfo;
                 if (showLog) { process.OutputDataReceived += (sender, e) => Console.WriteLine(e.Data); }
+                if (saveLog) { process.OutputDataReceived += (sender, e) => WriteOnLogFile(e.Data); }
                 process.Start();
-                if (showLog) { process.BeginOutputReadLine(); }
+                process.BeginOutputReadLine();
                 process.WaitForExit();
                 return process.ExitCode == 0;
             }
         }
-        public static bool BuildAsExe(string csprojPath, string outputPath, bool showLog)
+        public static bool BuildAsExe(string csprojPath, string outputPath, bool showLog, bool saveLog)
         {
             string argument = $"build \"{csprojPath}\" -o \"{outputPath}\" -c Release /p:DebugType=none /p:OutputType=Exe";
 
@@ -51,8 +52,9 @@ namespace Compiler
             {
                 process.StartInfo = startInfo;
                 if (showLog) { process.OutputDataReceived += (sender, e) => Console.WriteLine(e.Data); }
+                if (saveLog) { process.OutputDataReceived += (sender, e) => WriteOnLogFile(e.Data); }
                 process.Start();
-                if (showLog) { process.BeginOutputReadLine(); }
+                process.BeginOutputReadLine();
                 process.WaitForExit();
                 return process.ExitCode == 0;
             }
@@ -89,6 +91,18 @@ namespace Compiler
                 resources.Add(key.Replace('\\', '/'), newFileName);
             }
             ResourcesData.CreateResourcesData(resources, CompilerPaths.resourcesDataFilePath);
+        }
+
+        public static void DeleteLogFile()
+        {
+            if (File.Exists(CompilerPaths.logFilePath)) { File.Delete(CompilerPaths.logFilePath); }
+        }
+        static void WriteOnLogFile(string toWrite)
+        {
+            List<string> logFileContent = new List<string>();
+            if (File.Exists(CompilerPaths.logFilePath)) { logFileContent = File.ReadAllLines(CompilerPaths.logFilePath).ToList(); }
+            logFileContent.Add(toWrite);
+            File.WriteAllLines(CompilerPaths.logFilePath, logFileContent);
         }
     }
 }

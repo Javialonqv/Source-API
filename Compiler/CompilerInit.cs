@@ -13,6 +13,7 @@ namespace Compiler
         static void Main(string[] args)
         {
             CompilerPaths.Init();
+            DLLCompiler.DeleteLogFile();
 
             if (ReadJSONProperty<bool>(CompilerPaths.compilerPrefJsonPath, "deletePreviousBuild"))
             {
@@ -60,21 +61,24 @@ namespace Compiler
 
                 bool showCompilerLog = ReadJSONProperty<bool>(CompilerPaths.compilerPrefJsonPath, "showCompilerLog");
                 bool compilationSuccess = false;
+                bool saveLog = ReadJSONProperty<bool>(CompilerPaths.compilerPrefJsonPath, "saveLogFile");
                 if (Path.GetFileName(csprojPath) == "Logger.csproj")
-                { compilationSuccess = DLLCompiler.BuildAsExe(csprojPath, CompilerPaths.tempDataPath, showCompilerLog); }
+                { compilationSuccess = DLLCompiler.BuildAsExe(csprojPath, CompilerPaths.tempDataPath, showCompilerLog, saveLog); }
                 else
-                { compilationSuccess = DLLCompiler.BuildAsDLL(csprojPath, CompilerPaths.tempDataPath, showCompilerLog); }
+                { compilationSuccess = DLLCompiler.BuildAsDLL(csprojPath, CompilerPaths.tempDataPath, showCompilerLog, saveLog); }
 
-                if (compilationSuccess)
+                if (compilationSuccess && !showCompilerLog)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("Done");
                 }
-                else
+                else if (!showCompilerLog)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("FAILED!");
+                    if (saveLog) { Console.Write("FAILED!!!"); }
+                    else { Console.WriteLine("FAILED!!!"); }
                     Console.ForegroundColor = ConsoleColor.White;
+                    if (saveLog) { Console.WriteLine(" See compiler.log for more details."); }
                 }
             }
         }

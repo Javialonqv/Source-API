@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +23,7 @@ namespace Compiler
         public static string contentPath = "";
         public static string srcFilePath = "";
         public static string resourcesDataFilePath = "";
+        public static string logFilePath = "";
 
         public static void Init()
         {
@@ -40,6 +42,7 @@ namespace Compiler
             contentPath = Path.Combine(buildPath, "Content");
             srcFilePath = Path.Combine(buildPath, "default.src");
             resourcesDataFilePath = Path.Combine(contentPath, "resources.data");
+            logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "compiler.log");
         }
     }
 }
