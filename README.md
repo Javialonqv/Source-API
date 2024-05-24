@@ -13,9 +13,9 @@ In your Main method inside of your project, make sure of calling the `Applicatio
 ## SourceConfig.json file
 There's a file called `SourceConfig.json` that can be inside of every project inside of the solution (created by you, such as the App project).\
 This file contains some needed data:\
-`loggerEnabled` specifies if the Source Logger needs to be initialized, useful for debugging. By default is `true`.\
-`mainAppProjName` specifies the name of the project where the Main method is located. By default is `App`.\
-`mainMethodClassName` specifies the name of the class where the Main method is located. By default is `Program`.
+`loggerEnabled` Specifies if the Source Logger needs to be initialized, useful for debugging. By default is `true`.\
+`mainAppProjName` Specifies the name of the project where the Main method is located. By default is `App`.\
+`mainMethodClassName` Specifies the name of the class where the Main method is located. By default is `Program`.
 
 ## Content Folder
 This folder is located **ONLY** in the Main App Project (defined by the SourceConfig.json file).\
@@ -50,3 +50,15 @@ All the App builds created by Visual Studio are marked as `Debug builds`, to cre
 - data
   - (all compiled projects)
 - default.src (Source Executable File)
+### preferences.json file
+This file is located inside of the Compiler project, and contains the following properties:\
+`showCompilerLog` Specifies if the compiler should show the .csproj files compilation logs. By default is `false`\
+`deletePreviousBuild` Specifies if the previous release build should be deleted. By default is `true`.\
+`saveLogFile` Specifies if the compilation log should be saved on a file called `compiler.log`. By default is `true`.
+
+## Logger
+All this project is inside of ONE single class. This is maded to make a connection with a Source App that allows the execution of a logger.
+When the app throws a `Debug.Log()`, `Debug.LogInfo()`, etc. If the app is succesfully connected with a Source Logger, the logger shows the log object.
+
+## Executing the app
+See [Source Logger](https://github.com/Javialonqv/Source-Launcher) for more details.
