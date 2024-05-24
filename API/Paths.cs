@@ -13,6 +13,11 @@ namespace API
     internal static class Paths
     {
         /// <summary>
+        /// Specifies if the Paths class has been initialized.
+        /// </summary>
+        internal static bool initialized = false;
+
+        /// <summary>
         /// Points to the SourceConfig.json file. This one only exists on debug mode.
         /// </summary>
         public static string sourceConfigFilePath = "";
@@ -20,6 +25,10 @@ namespace API
         /// Points to the Logger.exe file.
         /// </summary>
         public static string loggerExecutableFilePath = "";
+        /// <summary>
+        /// Points to the "data" folder.
+        /// </summary>
+        public static string dataFolderPath = "";
         /// <summary>
         /// Points to the "Content" folder.
         /// </summary>
@@ -36,6 +45,7 @@ namespace API
         /// <param name="srcFilePath">Specifies the path of the default.src file. Empty if isCompiled is false.</param>
         internal static void Init(bool isCompiled, string srcFilePath)
         {
+            initialized = true;
             // If NOT compiled, get all the paths relative to the executing exe, otherwise, relative to the srcFilePath.
             if (!isCompiled)
             {

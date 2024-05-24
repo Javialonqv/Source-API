@@ -15,6 +15,17 @@ namespace API
         /// Specifies if the Source API has been initialized.
         /// </summary>
         internal static bool initialized = false;
+        /// <summary>
+        /// Points to the data path of the app.
+        /// </summary>
+        public static string dataPath
+        {
+            get
+            {
+                if (Paths.initialized) { return Paths.dataFolderPath; }
+                else { return ""; }
+            }
+        }
 
         /// <summary>
         /// Initialize the Source API. Needs to be called at the start of the runtime.
@@ -93,6 +104,22 @@ namespace API
             Resources.Init(true); // Inits the Resources class.
             Console.WriteLine("FINISHED SETUP!!!");
             Console.Clear();
+        }
+
+        /// <summary>
+        /// Stops the code execution and exits of the app.
+        /// </summary>
+        public static void Quit()
+        {
+            Environment.Exit(0);
+        }
+        /// <summary>
+        /// Stops the code execution and exits of the app.
+        /// </summary>
+        /// <param name="exitCode">The exit code result.</param>
+        public static void Quit(int exitCode)
+        {
+            Environment.Exit(exitCode);
         }
     }
 }
