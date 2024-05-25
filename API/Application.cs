@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
 
 namespace API
 {
@@ -107,10 +110,53 @@ namespace API
         }
 
         /// <summary>
+        /// Runs a local file in the machine or a online URL.
+        /// </summary>
+        /// <param name="url">The url to run.</param>
+        public static void Run(string url)
+        {
+            // Check first if the specified url actually is a local file. In that case, open the file or directory.
+            if (File.Exists(url) || Directory.Exists(url))
+            {
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                return;
+            }
+
+            // If the url seems to be a online URL and doesn't contains an scheme, add http by default.
+            if (!url.Contains("://") && (url.Contains(".") || url.StartsWith("www.")))
+            {
+                url = "http://" + url;
+            }
+            // For some reason, Uri.IsWellFormedUriString returns false with a file://, so, manage it manually.
+            if (url.StartsWith("file://"))
+            {
+                string localPath = new Uri(url).LocalPath;
+                if (File.Exists(localPath) || Directory.Exists(localPath))
+                {
+                    Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                    return;
+                }
+            }
+            // If the URL is a valid one, and its http, https or file, open it in the default browser.
+            if (Uri.IsWellFormedUriString(url, UriKind.Absolute))
+            {
+                Uri uri = new Uri(url);
+                if (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps || uri.Scheme == Uri.UriSchemeFile)
+                {
+                    Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                    return;
+                }
+            }
+            // If nothing apply, do nothing and throw an exception.
+            ExceptionsManager.SpecifiedFileDoesntExists(url);
+        }
+
+        /// <summary>
         /// Stops the code execution and exits of the app.
         /// </summary>
         public static void Quit()
         {
+            Debug.KillLogger();
             Environment.Exit(0);
         }
         /// <summary>
@@ -119,6 +165,7 @@ namespace API
         /// <param name="exitCode">The exit code result.</param>
         public static void Quit(int exitCode)
         {
+            Debug.KillLogger();
             Environment.Exit(exitCode);
         }
     }

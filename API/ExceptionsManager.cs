@@ -75,6 +75,14 @@ namespace API
         {
             ShowError($"Can't find the \"{resourceName}\" file INSIDE of the \"Content\" folder.");
         }
+        /// <summary>
+        /// Prints an error that says the specified file can't be found in the current machine. Maybe trying to call Application.Run().
+        /// </summary>
+        /// <param name="filePath">The path of the specified file.</param>
+        public static void SpecifiedFileDoesntExists(string filePath)
+        {
+            ShowError($"Can't find the \"{filePath}\" file in the current machine.");
+        }
 
         /// <summary>
         /// Shows the specified error into a dialog box or logger if it's enabled.
