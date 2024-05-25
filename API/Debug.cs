@@ -23,6 +23,23 @@ namespace API
         /// List of pending messages to send to the logger.
         /// </summary>
         static Queue<object> messages = new Queue<object>();
+        /// <summary>
+        /// The server used to share information across the 2 apps.
+        /// </summary>
+        static NamedPipeClientStream client = null;
+
+        /// <summary>
+        /// Specifies if the app stills connected to the Source Launcher.
+        /// </summary>
+        public static bool isLoggerActive
+        {
+            get
+            {
+                if (!loggerEnabled) { return false; }
+                else if (client != null) { return client.IsConnected; }
+                return false;
+            }
+        }
 
         /// <summary>
         /// Inits the debugger function.
@@ -33,8 +50,8 @@ namespace API
             Debug.loggerEnabled = loggerEnabled;
             if (loggerEnabled) // If logger is enabled, start the logger in another thread.
             {
-                Process.Start(Paths.loggerExecutableFilePath);
-                Thread thread = new Thread(new ThreadStart(InitializeClient));
+                InitializeClient(); // Starts the client and connect to it.
+                Thread thread = new Thread(new ThreadStart(PrintMessages));
                 thread.IsBackground = true;
                 thread.Start();
             }
@@ -43,19 +60,21 @@ namespace API
         static void InitializeClient()
         {
             // Unfortunely, there' no way to create two windows in one app, so, we need to make another app.
+            Process.Start(Paths.loggerExecutableFilePath);
             // This use a Pipe Stream to send the info across the two apps.
-            using (var client = new NamedPipeClientStream(".", "SourceLogger"))
+            client = new NamedPipeClientStream(".", "SourceLogger");
+            client.Connect();
+        }
+        static void PrintMessages()
+        {
+            using (var writer = new StreamWriter(client))
             {
-                client.Connect();
-                using (var writer = new StreamWriter(client))
+                writer.AutoFlush = true;
+                while (true)
                 {
-                    writer.AutoFlush = true;
-                    while (true)
+                    while (messages.Count > 0)
                     {
-                        while (messages.Count > 0)
-                        {
-                            writer.WriteLine(messages.Dequeue());
-                        }
+                        try { writer.WriteLine(messages.Dequeue()); } catch { }
                     }
                 }
             }

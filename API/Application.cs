@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace API
 {
@@ -29,6 +30,32 @@ namespace API
                 else { return ""; }
             }
         }
+
+        #region Is Focus
+        [DllImport("user32.dll")]
+        static extern IntPtr GetForegroundWindow();
+        [DllImport("user32.dll")]
+        static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
+        static string GetActiveWindowTitle()
+        {
+            const int nChars = 256;
+            StringBuilder Buff = new StringBuilder(nChars);
+            IntPtr handle = GetForegroundWindow();
+
+            if (GetWindowText(handle, Buff, nChars) > 0)
+            {
+                return Buff.ToString();
+            }
+            return null;
+        }
+        /// <summary>
+        /// Specifies if this app is the active window.
+        /// </summary>
+        public static bool isFocus
+        {
+            get { return GetActiveWindowTitle() == Window.title; }
+        }
+        #endregion
 
         /// <summary>
         /// Initialize the Source API. Needs to be called at the start of the runtime.
