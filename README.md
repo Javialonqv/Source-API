@@ -24,10 +24,12 @@ The files located inside this folder can be loaded later using the `Resources` A
 ## Source API Classes and Methods
 ### Application
 `dataPath` Points to the data folder of the app.\
+`isFocus` Specifies if this app is the active window.\
 `Init() or Init(windowTitle)` Initialize the Source API. Needs to be called at the start of the runtime.\
 `Quit() or Quit(exitCode)` Stops the code execution and exits of the app.\
 `Run(url)` Runs a local file in the machine or an online URL.
 ### Debug
+`Debug.isLoggerActive` Specifies if the app stills connected to the Source Launcher.\
 `Debug.Log(obj)` Logs an object if the logger it's active.\
 `Debug.LogInfo(obj)` Logs an object as info if the logger it's active.\
 `Debug.LogWarning(obj)` Logs an object as a warning if the logger it's active.\
