@@ -40,6 +40,21 @@ namespace API
                 return false;
             }
         }
+        /// <summary>
+        /// Specifies if the app is in a debug build.
+        /// </summary>
+        public static bool isDebugBuild
+        {
+            get
+            {
+                return IsDebugBuild;
+            }
+            internal set
+            {
+                IsDebugBuild = value;
+            }
+        }
+        static bool IsDebugBuild = true;
 
         /// <summary>
         /// Inits the debugger function.

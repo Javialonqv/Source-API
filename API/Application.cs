@@ -30,6 +30,13 @@ namespace API
                 else { return ""; }
             }
         }
+        /// <summary>
+        /// Specifies if the app is in a debug build.
+        /// </summary>
+        public static bool isDebugBuild
+        {
+            get { return Debug.isDebugBuild; }
+        }
 
         #region Is Focus
         [DllImport("user32.dll")]
@@ -119,6 +126,7 @@ namespace API
             Console.WriteLine("Initializing Engine...");
             AppDomain.CurrentDomain.ProcessExit += (sender, args) => Debug.KillLogger(); // Kills the logger on exit.
             initialized = true;
+            Debug.isDebugBuild = false;
             Console.WriteLine("Initializing Paths...");
             Paths.Init(true, srcFilePath); // Inits the Paths class.
             Console.WriteLine("Reading Source Config File...");
