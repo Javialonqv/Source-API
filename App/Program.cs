@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using API.GameEngine;
 
 namespace App
 {
-    internal class Program
+    internal class Program : MainBrain
     {
         static void Main(string[] args)
         {
