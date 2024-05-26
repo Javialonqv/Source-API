@@ -26,6 +26,7 @@ namespace API.GameEngine
             Console.CursorVisible = false;
             isRunning = true;
             int frameTime = 1000 / targetFrameRate;
+            Start();
             while (isRunning)
             {
                 DateTime startTime = DateTime.Now;
@@ -45,6 +46,14 @@ namespace API.GameEngine
             }
         }
 
+        static void Start()
+        {
+            foreach (MainBrain Class in MainBrain.classes)
+            {
+                Class.Start();
+            }
+        }
+
         static void Update()
         {
             Input.Update();
@@ -58,8 +67,14 @@ namespace API.GameEngine
         {
             foreach (GameObject obj in MainBrain.gameObjects)
             {
-                Console.SetCursorPosition((int)obj.position.X, (int)obj.position.Y);
-                Console.Write(obj.GetComponent<Text>().text);
+                if (obj != null)
+                {
+                    if (obj.TryGetComponent<Text>(out Text textObj))
+                    {
+                        Console.SetCursorPosition((int)obj.position.X, (int)obj.position.Y);
+                        Console.Write(textObj.text);
+                    }
+                }
             }
         }
     }

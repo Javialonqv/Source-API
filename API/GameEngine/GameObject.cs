@@ -9,7 +9,7 @@ using API.GameEngine.Components;
 
 namespace API.GameEngine
 {
-    public class GameObject : MainBrain
+    public class GameObject
     {
         public string name;
         public Vector2 position;
@@ -17,10 +17,10 @@ namespace API.GameEngine
         public int childCount = 0;
         List<Components.Component> components = new List<Components.Component>();
 
-        public GameObject() { gameObjects.Add(this); }
+        public GameObject() { MainBrain.gameObjects.Add(this); }
         public GameObject(string name)
         {
-            gameObjects.Add(this);
+            MainBrain.gameObjects.Add(this);
             this.name = name;
         }
 
@@ -32,6 +32,11 @@ namespace API.GameEngine
         public T GetComponent<T>() where T : Components.Component
         {
             return (T)components.Find(c => c.GetType() == typeof(T));
+        }
+        public bool TryGetComponent<T>(out T component) where T : Components.Component
+        {
+            component = (T)components.Find(c => c.GetType() == typeof(T));
+            return component != null;
         }
         public T AddComponent<T>() where T : Components.Component, new()
         {
