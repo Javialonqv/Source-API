@@ -59,7 +59,7 @@ namespace API
                 contentFolderPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
                     "App", "Content");
                 resourcesDataFilePath = "";
-                persistentDataPathParent = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                persistentDataPathParent = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SourceApps");
             }
             else
             {
@@ -67,7 +67,7 @@ namespace API
                 loggerExecutableFilePath = Path.Combine(Path.GetDirectoryName(srcFilePath), "data", "Logger.exe");
                 contentFolderPath = Path.Combine(Path.GetDirectoryName(srcFilePath), "Content");
                 resourcesDataFilePath = Path.Combine(contentFolderPath, "resources.data");
-                persistentDataPathParent = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                persistentDataPathParent = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SourceApps");
             }
             CheckDirectories(isCompiled);
         }
