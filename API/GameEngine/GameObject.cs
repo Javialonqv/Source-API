@@ -9,8 +9,14 @@ using API.GameEngine.Components;
 
 namespace API.GameEngine
 {
+    /// <summary>
+    /// Represents an Game Engine object.
+    /// </summary>
     public class GameObject
     {
+        /// <summary>
+        /// Specifies the name of the GameObject.
+        /// </summary>
         public string name;
         public Vector2 position;
         List<GameObject> childs = new List<GameObject>();
@@ -42,6 +48,7 @@ namespace API.GameEngine
         {
             T newComponent = new T();
             components.Add(newComponent);
+            if (newComponent is MainBrain) { MainBrain.classes.Add(newComponent as MainBrain); }
             return newComponent;
         }
     }

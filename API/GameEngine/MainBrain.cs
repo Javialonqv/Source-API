@@ -14,7 +14,7 @@ namespace API.GameEngine
 
         public MainBrain()
         {
-            classes.Add(this);
+            //classes.Add(this);
         }
 
         public void print(object obj)

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -96,8 +98,39 @@ namespace API
             }
             else
             {
-                MessageBox.Show(errorMessage.ToString(), "INTERNAL ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(errorMessage.ToString() + GetCallStack(), "INTERNAL ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        static string GetCallStack()
+        {
+            /*StackTrace trace = new StackTrace();
+
+            if (trace.FrameCount > 2)
+            {
+                StackFrame frame = trace.GetFrame(3);
+                MethodBase method = frame.GetMethod();
+                return $"{method.DeclaringType.FullName}.{method.Name}";
+            }
+            else
+            {
+                return "UNDEFINED";
+            }*/
+
+            StackTrace trace = new StackTrace(true);
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 3; i < trace.FrameCount; i++)
+            {
+                StackFrame frame = trace.GetFrame(i);
+                MethodBase method = frame.GetMethod();
+
+                string className = method.DeclaringType.FullName;
+                string methodName = method.Name;
+
+                sb.AppendLine($" at {className}.{methodName}");
+            }
+            return sb.ToString();
         }
     }
 }
