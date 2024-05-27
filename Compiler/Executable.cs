@@ -26,6 +26,7 @@ namespace Compiler
             toSerialize.Add("loggerEnabled", configFile.loggerEnabled);
             toSerialize.Add("mainAppProjName", configFile.mainAppProjName);
             toSerialize.Add("mainMethodClassName", configFile.mainMethodClassName);
+            toSerialize.Add("packageName", configFile.packageName);
             bf.Serialize(fs, toSerialize);
         }
     }

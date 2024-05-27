@@ -31,6 +31,22 @@ namespace API
             }
         }
         /// <summary>
+        /// Points to a user folder specifically maded for this app.
+        /// </summary>
+        public static string persistenDataPath
+        {
+            get
+            {
+                if (Paths.initialized)
+                {
+                    string path = Path.Combine(Paths.persistentDataPathParent, ConfigFile.loaded.packageName);
+                    if (!Directory.Exists(path)) { Directory.CreateDirectory(path); }
+                    return path;
+                }
+                else { return ""; }
+            }
+        }
+        /// <summary>
         /// Specifies if the app is in a debug build.
         /// </summary>
         public static bool isDebugBuild
@@ -70,23 +86,23 @@ namespace API
         public static void Init()
         {
             if (initialized) { return; } // This method can only be called once.
-            Console.WriteLine("Initializing Engine...");
+            Console.WriteLine("[*] Initializing Engine...");
             AppDomain.CurrentDomain.ProcessExit += (sender, args) => Debug.KillLogger(); // Kills the logger on exit.
             initialized = true;
-            Console.WriteLine("Initializing Paths...");
+            Console.WriteLine("[*] Initializing Paths...");
             Paths.Init(false, ""); // Inits the Paths class.
-            Console.WriteLine("Reading Source Config File...");
+            Console.WriteLine("[*] Reading Source Config File...");
             ConfigFile.Init(false, Paths.sourceConfigFilePath); // Inits the ConfigFile class.
-            Console.WriteLine("Setting up Window Configurations...");
+            Console.WriteLine("[*] Setting up Window Configurations...");
             Window.Init(Window.MAIN_WIDTH, Window.MAIN_HEIGHT, ""); // Inits the Window class.
             if (ConfigFile.LoggerEnabled)
             {
-                Console.WriteLine("Initializing Logger...");
+                Console.WriteLine("[*] Initializing Logger...");
                 Debug.Init(true); // Inits the Debug class ONLY if the logger is enabled on the JSON file.
             }
-            Console.WriteLine("Initializing Resources...");
+            Console.WriteLine("[*] Initializing Resources...");
             Resources.Init(false); // Inits the Resources class.
-            Console.WriteLine("FINISHED SETUP!!!");
+            Console.WriteLine("[*] FINISHED SETUP!!!");
             Console.Clear();
         }
         /// <summary>
@@ -97,22 +113,22 @@ namespace API
         {
             if (!initialized)
             {
-                Console.WriteLine("Initializing Engine...");
+                Console.WriteLine("[*] Initializing Engine...");
                 AppDomain.CurrentDomain.ProcessExit += (sender, args) => Debug.KillLogger(); // Kills the logger on exit.
                 initialized = true;
-                Console.WriteLine("Initializing Paths...");
+                Console.WriteLine("[*] Initializing Paths...");
                 Paths.Init(false, ""); // Inits the Paths class.
-                Console.WriteLine("Reading Source Config File...");
+                Console.WriteLine("[*] Reading Source Config File...");
                 ConfigFile.Init(false, Paths.sourceConfigFilePath); // Inits the ConfigFile class.
-                Console.WriteLine("Setting up Window Configurations...");
+                Console.WriteLine("[*] Setting up Window Configurations...");
                 if (ConfigFile.LoggerEnabled)
                 {
-                    Console.WriteLine("Initializing Logger...");
+                    Console.WriteLine("[*] Initializing Logger...");
                     Debug.Init(true); // Inits the Debug class ONLY if the logger is enabled on the JSON file.
                 }
-                Console.WriteLine("Initializing Resources...");
+                Console.WriteLine("[*] Initializing Resources...");
                 Resources.Init(false); // Inits the Resources class.
-                Console.WriteLine("FINISHED SETUP!!!");
+                Console.WriteLine("[*] FINISHED SETUP!!!");
                 Console.Clear();
             }
             Window.Init(Window.MAIN_WIDTH, Window.MAIN_HEIGHT, windowTitle); // Inits the Window class.
@@ -123,24 +139,24 @@ namespace API
         /// </summary>
         internal static void InitWithSRCFile(string srcFilePath)
         {
-            Console.WriteLine("Initializing Engine...");
+            Console.WriteLine("[*] Initializing Engine...");
             AppDomain.CurrentDomain.ProcessExit += (sender, args) => Debug.KillLogger(); // Kills the logger on exit.
             initialized = true;
             Debug.isDebugBuild = false;
-            Console.WriteLine("Initializing Paths...");
+            Console.WriteLine("[*] Initializing Paths...");
             Paths.Init(true, srcFilePath); // Inits the Paths class.
-            Console.WriteLine("Reading Source Config File...");
+            Console.WriteLine("[*] Reading Source Config File...");
             ConfigFile.Init(true, Paths.sourceConfigFilePath); // Inits the ConfigFile class.
-            Console.WriteLine("Setting up Window Configurations...");
+            Console.WriteLine("[*] Setting up Window Configurations...");
             Window.Init(Window.MAIN_WIDTH, Window.MAIN_HEIGHT, ""); // Inits the Window class.
             if (ConfigFile.LoggerEnabled)
             {
-                Console.WriteLine("Initializing Logger...");
+                Console.WriteLine("[*] Initializing Logger...");
                 Debug.Init(true); // Inits the Debug class ONLY if the logger is enabled on the JSON file.
             }
-            Console.WriteLine("Initializing Resources...");
+            Console.WriteLine("[*] Initializing Resources...");
             Resources.Init(true); // Inits the Resources class.
-            Console.WriteLine("FINISHED SETUP!!!");
+            Console.WriteLine("[*] FINISHED SETUP!!!");
             Console.Clear();
         }
 

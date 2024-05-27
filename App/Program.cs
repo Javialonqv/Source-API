@@ -15,7 +15,7 @@ namespace App
             Application.Init("Test App");
             Debug.LogInfo("Test Info Message.");
             Debug.LogWarning(Resources.Load<string>("HELLO_WORLD"));
-            //Application.Run("google.com");
+            Application.Run("google.com");
             Console.ReadKey();
         }
     }

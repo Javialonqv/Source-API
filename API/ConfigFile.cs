@@ -42,6 +42,10 @@ namespace API
         /// Specifies the class name where the Main method is located.
         /// </summary>
         public string mainMethodClassName = "";
+        /// <summary>
+        /// Specifies the name of the package of the app.
+        /// </summary>
+        public string packageName = "";
 
         /// <summary>
         /// Inits an instance of the ConfigFile class by reading the SourceConfig.json file.
@@ -80,6 +84,7 @@ namespace API
                     config.loggerEnabled = (bool)deserialized["loggerEnabled"];
                     config.mainAppProjName = (string)deserialized["mainAppProjName"];
                     config.mainMethodClassName = (string)deserialized["mainMethodClassName"];
+                    config.packageName = (string)deserialized["packageName"];
                     loaded = config;
                 }
             }

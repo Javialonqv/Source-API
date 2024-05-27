@@ -30,6 +30,10 @@ namespace API
         /// </summary>
         public static string dataFolderPath = "";
         /// <summary>
+        /// Points to the "SourceApps" folder on the current user folder.
+        /// </summary>
+        public static string persistentDataPathParent = "";
+        /// <summary>
         /// Points to the "Content" folder.
         /// </summary>
         public static string contentFolderPath = "";
@@ -55,6 +59,7 @@ namespace API
                 contentFolderPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,
                     "App", "Content");
                 resourcesDataFilePath = "";
+                persistentDataPathParent = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             }
             else
             {
@@ -62,6 +67,7 @@ namespace API
                 loggerExecutableFilePath = Path.Combine(Path.GetDirectoryName(srcFilePath), "data", "Logger.exe");
                 contentFolderPath = Path.Combine(Path.GetDirectoryName(srcFilePath), "Content");
                 resourcesDataFilePath = Path.Combine(contentFolderPath, "resources.data");
+                persistentDataPathParent = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             }
             CheckDirectories(isCompiled);
         }
@@ -80,6 +86,8 @@ namespace API
                     { ExceptionsManager.CantFindLoggerExecutableFile(loggerExecutableFilePath); }
                 if (!Directory.Exists(contentFolderPath))
                     { ExceptionsManager.CantFindContentFolder(contentFolderPath); }
+                if (!Directory.Exists(persistentDataPathParent))
+                    { Directory.CreateDirectory(persistentDataPathParent); }
             }
         }
     }
