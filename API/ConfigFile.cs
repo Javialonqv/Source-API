@@ -22,7 +22,7 @@ namespace API
         /// <summary>
         /// Specifies whether the logger will be enabled or not.
         /// </summary>
-        public bool loggerEnabled { get; set; }
+        public bool loggerEnabled { get; set; } = true;
         /// <summary>
         /// Specifies whether the logger will be enabled or not with exceptions control.
         /// </summary>
@@ -37,19 +37,19 @@ namespace API
         /// <summary>
         /// Specifies the main project where the SourceConfig.json file and Content folder are located.
         /// </summary>
-        public string mainAppProjName { get; set; }
+        public string mainAppProjName { get; set; } = "";
         /// <summary>
         /// Specifies the class name where the Main method is located.
         /// </summary>
-        public string mainMethodClassName { get; set; }
+        public string mainMethodClassName { get; set; } = "Program";
         /// <summary>
         /// Specifies the name of the package of the app.
         /// </summary>
-        public string packageName { get; set; }
+        public string packageName { get; set; } = "TestApp";
         /// <summary>
         /// Specifies if should log a message as Message Box when the Source Logger is disabled or connection is lost, instead of throwing an exception.
         /// </summary>
-        public bool logAsMessageBoxWhenLoggerDisabled { get; set; }
+        public bool logAsMessageBoxWhenLoggerDisabled { get; set; } = false;
 
         /// <summary>
         /// Inits an instance of the ConfigFile class by reading the SourceConfig.json file.
