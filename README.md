@@ -24,7 +24,7 @@ This folder is located **ONLY** in the Main App Project (defined by the SourceCo
 The files located inside this folder can be loaded later using the `Resources` API class.
 
 ## Source API Classes and Methods
-### Application
+### Application `Toolkit for the general use of the Source API.`
 `Application.dataPath` Points to the data folder of the app.\
 `Application.persistentDatapath` Points to a user folder specifically maded for this app. Perfect for storing USER data.\
 `Application.isFocus` Specifies if this app is the active window.\
@@ -32,17 +32,17 @@ The files located inside this folder can be loaded later using the `Resources` A
 `Init() or Init(windowTitle)` Initialize the Source API. Needs to be called at the start of the runtime.\
 `Quit() or Quit(exitCode)` Stops the code execution and exits of the app.\
 `Run(url)` Runs a local file in the machine or an online URL.
-### Debug
+### Debug `Toolkit for debugging the Source application.`
 `Debug.isLoggerActive` Specifies if the app stills connected to the Source Launcher.\
 `Debug.isDebugBuild` Specifies if the app is in a debug build.\
 `Debug.Log(obj)` Logs an object if the logger it's active.\
 `Debug.LogInfo(obj)` Logs an object as info if the logger it's active.\
 `Debug.LogWarning(obj)` Logs an object as a warning if the logger it's active.\
 `Debug.LogError(obj)` Logs an object as an error if the logger it's active.
-### Resources
+### Resources `Toolkit for loading resources files inside of the "Content" folder.`
 `Load<T>(fileName)` Loads a specified file from the "Content" folder if exists.\
 `Load(fileName)` Loads a specified file from the "Content" folder if exists.
-### Window
+### Window `Handles the size and other settings of the app's window.`
 `MAIN_WIDTH` Represents a const of the default width of the window.
 `MAIN_HEIGHT` Represents a const of the default height of the window.
 `width` Represents the width of the window.
