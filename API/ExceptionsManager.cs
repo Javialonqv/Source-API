@@ -78,6 +78,22 @@ namespace API
             ShowError($"Can't find the \"{resourceName}\" file INSIDE of the \"Content\" folder.");
         }
         /// <summary>
+        /// Prints an error that says the object of the specified type can't be serialized.
+        /// </summary>
+        /// <param name="objectType">The type of the object trying to serialize.</param>
+        public static void CantSerializeJsonFile(Type objectType)
+        {
+            ShowError($"Can't serialize the object of type {objectType.FullName}. Mayble NOT a JSON file.");
+        }
+        /// <summary>
+        /// Prints an error that says a JSON can't be deserealized as the specified type.
+        /// </summary>
+        /// <param name="objectType">The type of the object trying to deserialize to.</param>
+        public static void CantDeserializeJsonFile(Type objectType)
+        {
+            ShowError($"Can't deserialize a JSON as the {objectType.FullName} type.");
+        }
+        /// <summary>
         /// Prints an error that says the specified file can't be found in the current machine. Maybe trying to call Application.Run().
         /// </summary>
         /// <param name="filePath">The path of the specified file.</param>

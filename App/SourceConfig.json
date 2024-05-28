@@ -1,5 +1,5 @@
 {
-  "loggerEnabled": false,
+  "loggerEnabled": true,
   "mainAppProjName": "App",
   "mainMethodClassName": "Program",
   "packageName": "TestApp",

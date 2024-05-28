@@ -58,7 +58,7 @@ namespace API
         /// <typeparam name="T">The type of the value to return.</typeparam>
         /// <param name="fileName">The name of the file, can be with/without extension, or a file path relative to the
         /// "Content" folder.</param>
-        /// <returns></returns>
+        /// <returns>The specified file converted to the specified type.</returns>
         public static T Load<T>(string fileName)
         {
             foreach (var pair in files)
@@ -83,7 +83,7 @@ namespace API
         /// </summary>
         /// <param name="fileName">The name of the file, can be with/without extension, or a file path relative to the
         /// "Content" folder.</param>
-        /// <returns></returns>
+        /// <returns>The specified file to an object type.</returns>
         public static object Load(string fileName)
         {
             foreach (var pair in files)
