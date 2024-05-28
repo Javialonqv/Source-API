@@ -47,7 +47,7 @@ namespace Compiler
             }
         }
 
-        static T ReadJSONProperty<T>(string jsonFilePath, string propertyName)
+        public static T ReadJSONProperty<T>(string jsonFilePath, string propertyName)
         {
             string input = File.ReadAllText(jsonFilePath);
             JObject jsonObj = JObject.Parse(input);

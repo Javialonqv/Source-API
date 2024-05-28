@@ -36,6 +36,20 @@ namespace Compiler
                     toSerialize.Add(property.Name, property.GetValue(configFile));
                 }
             }
+            if (configFile.loggerEnabled && CompilerInit.ReadJSONProperty<bool>(CompilerPaths.compilerPrefJsonPath, "showBuildWithLoggerWarning"))
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                ConsoleKey pressedKey;
+                do
+                {
+                    Console.Write("WARNING: Logger is enabled on the Release Build, continue? (Y/n): ");
+                    pressedKey = Console.ReadKey().Key;
+                }
+                while (pressedKey != ConsoleKey.Y && pressedKey != ConsoleKey.N);
+                if (pressedKey == ConsoleKey.N) { Environment.Exit(0); } // If the user press N, exit of the app.
+                Console.WriteLine(""); // Skip a line.
+                Console.ForegroundColor = ConsoleColor.White;
+            }
             bf.Serialize(fs, toSerialize);
         }
     }

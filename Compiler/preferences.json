@@ -1,5 +1,6 @@
 {
   "showCompilerLog": false,
   "deletePreviousBuild": true,
-  "saveLogFile": true
+  "saveLogFile": true,
+  "showBuildWithLoggerWarning": true
 }
