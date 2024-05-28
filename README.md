@@ -39,6 +39,11 @@ The files located inside this folder can be loaded later using the `Resources` A
 `Debug.LogInfo(obj)` Logs an object as info if the logger it's active.\
 `Debug.LogWarning(obj)` Logs an object as a warning if the logger it's active.\
 `Debug.LogError(obj)` Logs an object as an error if the logger it's active.
+### JsonUtility `Toolkit for managing JSON texts.`
+`ToJson(obj, prettyPrint)` Converts the public properties from a .NET object to a JSON string.\
+`FromJson<T>(json)` Converts a JSON text to a .NET object.\
+`FromJson(json, obj)` Converts a JSON text and set it to the specified .NET object.\
+`ReadJsonProperty<T>(json, propertyName)` Deserialize the specified property from the specified json text.
 ### Resources `Toolkit for loading resources files inside of the "Content" folder.`
 `Load<T>(fileName)` Loads a specified file from the "Content" folder if exists.\
 `Load(fileName)` Loads a specified file from the "Content" folder if exists.
