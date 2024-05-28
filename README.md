@@ -15,7 +15,9 @@ There's a file called `SourceConfig.json` that can be inside of every project in
 This file contains some needed data:\
 `loggerEnabled` Specifies if the Source Logger needs to be initialized, useful for debugging. By default is `true`.\
 `mainAppProjName` Specifies the name of the project where the Main method is located. By default is `App`.\
-`mainMethodClassName` Specifies the name of the class where the Main method is located. By default is `Program`.
+`mainMethodClassName` Specifies the name of the class where the Main method is located. By default is `Program`.\
+`packageName` Specifies the name of the package of the app.\
+`logAsMessageBoxWhenLoggerDisabled` Specifies if should log a message as Message Box when the Source Logger is disabled or connection is lost, instead of throwing an exception.
 
 ## Content Folder
 This folder is located **ONLY** in the Main App Project (defined by the SourceConfig.json file).\
