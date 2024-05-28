@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace API
 {
@@ -101,7 +102,8 @@ namespace API
         /// <param name="obj">The object to print on the logger's console.</param>
         public static void Log(object obj)
         {
-            if (!loggerEnabled) { ExceptionsManager.LoggerNOTEnabled(); return; }
+            if (!loggerEnabled && !ConfigFile.loaded.logAsMessageBoxWhenLoggerDisabled) { ExceptionsManager.LoggerNOTEnabled(); return; }
+            if (!loggerEnabled && ConfigFile.loaded.logAsMessageBoxWhenLoggerDisabled) { LogAsMessageBox("LOG", obj); return; }
             messages.Enqueue("[LOG] " + obj);
         }
         /// <summary>
@@ -110,7 +112,8 @@ namespace API
         /// <param name="obj">The object to print on the logger's console as info.</param>
         public static void LogInfo(object obj)
         {
-            if (!loggerEnabled) { ExceptionsManager.LoggerNOTEnabled(); return; }
+            if (!loggerEnabled && !ConfigFile.loaded.logAsMessageBoxWhenLoggerDisabled) { ExceptionsManager.LoggerNOTEnabled(); return; }
+            if (!loggerEnabled && ConfigFile.loaded.logAsMessageBoxWhenLoggerDisabled) { LogAsMessageBox("INFO", obj); return; }
             messages.Enqueue("[INFO] " + obj);
         }
         /// <summary>
@@ -119,7 +122,8 @@ namespace API
         /// <param name="obj">The object to print on the logger's console as a warning.</param>
         public static void LogWarning(object obj)
         {
-            if (!loggerEnabled) { ExceptionsManager.LoggerNOTEnabled(); return; }
+            if (!loggerEnabled && !ConfigFile.loaded.logAsMessageBoxWhenLoggerDisabled) { ExceptionsManager.LoggerNOTEnabled(); return; }
+            if (!loggerEnabled && ConfigFile.loaded.logAsMessageBoxWhenLoggerDisabled) { LogAsMessageBox("WARNING", obj); return; }
             messages.Enqueue("[WARNING] " + obj);
         }
         /// <summary>
@@ -128,7 +132,8 @@ namespace API
         /// <param name="obj">The object to print on the logger's console as an error.</param>
         public static void LogError(object obj)
         {
-            if (!loggerEnabled) { ExceptionsManager.LoggerNOTEnabled(); return; }
+            if (!loggerEnabled && !ConfigFile.loaded.logAsMessageBoxWhenLoggerDisabled) { ExceptionsManager.LoggerNOTEnabled(); return; }
+            if (!loggerEnabled && ConfigFile.loaded.logAsMessageBoxWhenLoggerDisabled) { LogAsMessageBox("ERROR", obj); return; }
             messages.Enqueue("[ERROR] " + obj);
         }
         /// <summary>
@@ -137,7 +142,7 @@ namespace API
         /// <param name="obj">The object to print on the logger's console as an internal error.</param>
         internal static void LogInternalError(object obj)
         {
-            if (!loggerEnabled) { ExceptionsManager.LoggerNOTEnabled(); return; }
+            if (!loggerEnabled) { LogAsMessageBox("INTERNAL ERROR", obj); return; }
             messages.Enqueue("[INTERNAL ERROR] " + obj);
         }
         /// <summary>
@@ -148,6 +153,28 @@ namespace API
             // Since this method it's called on app close, remove the error line to avoid bugs.
             if (!loggerEnabled) { /*ExceptionsManager.LoggerNotEnabled();*/ return; }
             messages.Enqueue("kill-server");
+        }
+
+        internal static void LogAsMessageBox(string logType, object obj)
+        {
+            switch (logType)
+            {
+                case "LOG":
+                    MessageBox.Show(obj.ToString(), logType, MessageBoxButtons.OK, MessageBoxIcon.None);
+                    break;
+                case "INFO":
+                    MessageBox.Show(obj.ToString(), logType, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+                case "WARNING":
+                    MessageBox.Show(obj.ToString(), logType, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case "ERROR":
+                    MessageBox.Show(obj.ToString(), logType, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case "INTERNAL ERROR":
+                    MessageBox.Show(obj.ToString(), logType, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+            }
         }
     }
 }

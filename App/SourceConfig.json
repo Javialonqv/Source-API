@@ -1,6 +1,7 @@
 {
-  "loggerEnabled": true,
+  "loggerEnabled": false,
   "mainAppProjName": "App",
   "mainMethodClassName": "Program",
-  "packageName": "Test App"
+  "packageName": "Test App",
+  "logAsMessageBoxWhenLoggerDisabled": true
 }
