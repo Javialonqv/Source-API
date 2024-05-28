@@ -11,8 +11,7 @@ namespace Compiler
     /// <summary>
     /// Config class to save the Source API configurations.
     /// </summary>
-    [Serializable]
-    internal class CompilerConfigFile
+    public class CompilerConfigFile
     {
         /// <summary>
         /// Specifies the current instance of the class loaded in memory.
@@ -21,7 +20,7 @@ namespace Compiler
         /// <summary>
         /// Specifies whether the logger will be enabled or not.
         /// </summary>
-        public bool loggerEnabled = false;
+        public bool loggerEnabled { get; set;}
         /// <summary>
         /// Specifies whether the logger will be enabled or not with exceptions control.
         /// </summary>
@@ -36,15 +35,15 @@ namespace Compiler
         /// <summary>
         /// Specifies the main project where the SourceConfig.json file and Content folder are located.
         /// </summary>
-        public string mainAppProjName = "";
+        public string mainAppProjName { get; set; }
         /// <summary>
         /// Specifies the class name where the Main method is located.
         /// </summary>
-        public string mainMethodClassName = "";
+        public string mainMethodClassName { get; set; }
         /// <summary>
         /// Specifies the name of the package of the app.
         /// </summary>
-        public string packageName = "";
+        public string packageName { get; set; }
 
         /// <summary>
         /// Inits an instance of the ConfigFile class by reading the SourceConfig.json file.

@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Reflection;
 
 namespace Compiler
 {
-    [Serializable]
-    internal class Executable
+    public class Executable
     {
         public CompilerConfigFile configFile;
 
@@ -23,10 +23,19 @@ namespace Compiler
             FileStream fs = new FileStream(srcFilePath, FileMode.Create);
             BinaryFormatter bf = new BinaryFormatter();
             Dictionary<string, object> toSerialize = new Dictionary<string, object>();
-            toSerialize.Add("loggerEnabled", configFile.loggerEnabled);
+            /*toSerialize.Add("loggerEnabled", configFile.loggerEnabled);
             toSerialize.Add("mainAppProjName", configFile.mainAppProjName);
             toSerialize.Add("mainMethodClassName", configFile.mainMethodClassName);
-            toSerialize.Add("packageName", configFile.packageName);
+            toSerialize.Add("packageName", configFile.packageName);*/
+            Type type = configFile.GetType();
+            PropertyInfo[] properties = type.GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            foreach (PropertyInfo property in properties)
+            {
+                if (property.CanWrite && !property.GetMethod.IsStatic)
+                {
+                    toSerialize.Add(property.Name, property.GetValue(configFile));
+                }
+            }
             bf.Serialize(fs, toSerialize);
         }
     }

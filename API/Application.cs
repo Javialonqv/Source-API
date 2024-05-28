@@ -31,7 +31,7 @@ namespace API
             }
         }
         /// <summary>
-        /// Points to a user folder specifically maded for this app.
+        /// Points to a user folder specifically maded for this app. Perfect for storing USER data.
         /// </summary>
         public static string persistenDataPath
         {

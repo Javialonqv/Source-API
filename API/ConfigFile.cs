@@ -22,7 +22,7 @@ namespace API
         /// <summary>
         /// Specifies whether the logger will be enabled or not.
         /// </summary>
-        public bool loggerEnabled = false;
+        public bool loggerEnabled { get; set; }
         /// <summary>
         /// Specifies whether the logger will be enabled or not with exceptions control.
         /// </summary>
@@ -37,15 +37,15 @@ namespace API
         /// <summary>
         /// Specifies the main project where the SourceConfig.json file and Content folder are located.
         /// </summary>
-        public string mainAppProjName = "";
+        public string mainAppProjName { get; set; }
         /// <summary>
         /// Specifies the class name where the Main method is located.
         /// </summary>
-        public string mainMethodClassName = "";
+        public string mainMethodClassName { get; set; }
         /// <summary>
         /// Specifies the name of the package of the app.
         /// </summary>
-        public string packageName = "";
+        public string packageName { get; set; }
 
         /// <summary>
         /// Inits an instance of the ConfigFile class by reading the SourceConfig.json file.
@@ -81,10 +81,19 @@ namespace API
                     // Deserealize the file and convert every object into a ConfigFile class:
                     Dictionary<string, object> deserialized = (Dictionary<string, object>)bf.Deserialize(fs);
                     ConfigFile config = new ConfigFile();
-                    config.loggerEnabled = (bool)deserialized["loggerEnabled"];
+                    Type configType = config.GetType();
+                    /*config.loggerEnabled = (bool)deserialized["loggerEnabled"];
                     config.mainAppProjName = (string)deserialized["mainAppProjName"];
                     config.mainMethodClassName = (string)deserialized["mainMethodClassName"];
-                    config.packageName = (string)deserialized["packageName"];
+                    config.packageName = (string)deserialized["packageName"];*/
+                    foreach (var pair in deserialized)
+                    {
+                        PropertyInfo property = configType.GetProperty(pair.Key);
+                        if (property != null && property.CanWrite && !property.GetMethod.IsStatic)
+                        {
+                            property.SetValue(config, pair.Value, null);
+                        }
+                    }
                     loaded = config;
                 }
             }
