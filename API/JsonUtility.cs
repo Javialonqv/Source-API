@@ -74,11 +74,11 @@ namespace API
             };
             try
             {
-                obj = JsonConvert.DeserializeObject<T>(json, settings);
+                obj = JsonConvert.DeserializeObject<object>(json, settings);
             }
             catch
             {
-                ExceptionsManager.CantDeserializeJsonFile(typeof(T));
+                ExceptionsManager.CantDeserializeJsonFile(typeof(object));
             }
         }
 
