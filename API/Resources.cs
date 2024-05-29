@@ -71,6 +71,10 @@ namespace API
                     {
                         return (T)(object)File.ReadAllText(pair.Value);
                     }
+                    else if (typeof(T) == typeof(AudioSource) && AudioSource.CanCreateFrom(pair.Value))
+                    {
+                        return (T)(object)(new AudioSource(pair.Value));
+                    }
                     else { return (T)(object)File.ReadAllBytes(pair.Value); }
                 }
             }

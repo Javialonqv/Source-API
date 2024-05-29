@@ -101,6 +101,14 @@ namespace API
         {
             ShowError($"Can't find the \"{filePath}\" file in the current machine.");
         }
+        /// <summary>
+        /// Prints an error that says the specified audio file can't be loaded.
+        /// </summary>
+        /// <param name="filePath"></param>
+        public static void ErrorLoadingAudioFile(string filePath)
+        {
+            ShowError($"Can't load the audio file at \"{filePath}\".");
+        }
 
         /// <summary>
         /// Shows the specified error into a dialog box or logger if it's enabled.
