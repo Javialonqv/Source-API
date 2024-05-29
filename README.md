@@ -32,6 +32,12 @@ The files located inside this folder can be loaded later using the `Resources` A
 `Init() or Init(windowTitle)` Initialize the Source API. Needs to be called at the start of the runtime.\
 `Quit() or Quit(exitCode)` Stops the code execution and exits of the app.\
 `Run(url)` Runs a local file in the machine or an online URL.
+### AudioSource `Toolkit for audio managment.`
+`isPlaying` Specifies if the audio is currently playing.
+`audioPath` Spceifies the path to the audio file.
+`volume` Specifies the volume of the audio.
+`Play()` Plays the loaded audio file.
+`Play(audioPath)` Plays an audio file without a AudioSource class instance.
 ### Debug `Toolkit for debugging the Source application.`
 `Debug.isLoggerActive` Specifies if the app stills connected to the Source Launcher.\
 `Debug.isDebugBuild` Specifies if the app is in a debug build.\
