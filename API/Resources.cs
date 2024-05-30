@@ -103,6 +103,11 @@ namespace API
             return null;
         }
 
+        /// <summary>
+        /// Gets the full file path of the specified resource file.
+        /// </summary>
+        /// <param name="fileName">The name of the file.</param>
+        /// <returns>The full file path.</returns>
         public static string GetFullFilePath(string fileName)
         {
             foreach (var pair in files)
