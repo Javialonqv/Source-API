@@ -1,6 +1,5 @@
 # Source API
-This is a kind of "framework" to develop console apps with C#.\
-**NOTE:** This project is based on the **Unity Engine API**, so if they are similar, is because of that :)
+This is a kind of "framework" to develop console apps with C#.
 
 ## Getting Started
 In the template project, there are 4 projects, `API`, `App`, `Logger` and `Compiler`, this is because now you can modify the engine to suit your needs.\
