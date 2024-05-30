@@ -89,7 +89,7 @@ namespace API
         /// <param name="json">The JSON text.</param>
         /// <param name="propertyName">The name of the property to deserialize.</param>
         /// <returns>The deserialized property.</returns>
-        static T ReadJSONProperty<T>(string json, string propertyName)
+        public static T ReadJSONProperty<T>(string json, string propertyName)
         {
             JObject jsonObj = JObject.Parse(json);
             if (jsonObj.ContainsKey(propertyName))

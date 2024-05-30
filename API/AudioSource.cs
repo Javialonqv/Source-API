@@ -26,7 +26,7 @@ namespace API
         /// <summary>
         /// Spceifies the path to the audio file.
         /// </summary>
-        public string audioPath = "";
+        public string audioPath { get; private set; } = "";
         /// <summary>
         /// Specifies the volume of the audio.
         /// </summary>
@@ -38,6 +38,10 @@ namespace API
                 if (value >= 0 && value <= 1) { outputDevice.Volume = value; }
             }
         }
+        /// <summary>
+        /// Specifies if the audio should be on a loop.
+        /// </summary>
+        public bool loop = false;
 
         /// <summary>
         /// Creates a new instance of the AudioSource with a audio file.
@@ -46,10 +50,19 @@ namespace API
         public AudioSource(string audioPath)
         {
             this.audioPath = audioPath;
+            InitOutputDevice();
+        }
+
+        /// <summary>
+        /// Inits the audio file to be played.
+        /// </summary>
+        void InitOutputDevice()
+        {
             try
             {
                 AudioFileReader reader = new AudioFileReader(audioPath);
                 outputDevice = new WaveOutEvent();
+                outputDevice.PlaybackStopped += OnPlaybackStopped;
                 outputDevice.Init(reader);
             }
             catch
@@ -82,6 +95,20 @@ namespace API
             catch
             {
                 ExceptionsManager.ErrorLoadingAudioFile(audioPath);
+            }
+        }
+
+        /// <summary>
+        /// Specifies what happen when the audio stop playing.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void OnPlaybackStopped(object sender, StoppedEventArgs e)
+        {
+            if (loop)
+            {
+                InitOutputDevice(); // Restart the output device.
+                Play(); // Replay the audio file.
             }
         }
 
