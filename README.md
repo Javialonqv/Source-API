@@ -28,7 +28,8 @@ The files located inside this folder can be loaded later using the `Resources` A
 `Application.dataPath` Points to the data folder of the app.\
 `Application.persistentDatapath` Points to a user folder specifically maded for this app. Perfect for storing USER data.\
 `Application.isFocus` Specifies if this app is the active window.\
-`Application.isDebugBuild` Specifies if the app is in a debug build.
+`Application.isDebugBuild` Specifies if the app is in a debug build.\
+`Application.systemLanguage` Specifies the system language of the current user.\
 `Init() or Init(windowTitle)` Initialize the Source API. Needs to be called at the start of the runtime.\
 `Quit() or Quit(exitCode)` Stops the code execution and exits of the app.\
 `Run(url)` Runs a local file in the machine or an online URL.
@@ -36,6 +37,7 @@ The files located inside this folder can be loaded later using the `Resources` A
 `isPlaying` Specifies if the audio is currently playing.\
 `audioPath` Spceifies the path to the audio file.\
 `volume` Specifies the volume of the audio.\
+`loop` Specifies if the audio should be on a loop.\
 `Play()` Plays the loaded audio file.\
 `Play(audioPath)` Plays an audio file without a AudioSource class instance.
 ### Debug `Toolkit for debugging the Source application.`
@@ -52,7 +54,8 @@ The files located inside this folder can be loaded later using the `Resources` A
 `ReadJsonProperty<T>(json, propertyName)` Deserialize the specified property from the specified json text.
 ### Resources `Toolkit for loading resources files inside of the "Content" folder.`
 `Load<T>(fileName)` Loads a specified file from the "Content" folder if exists.\
-`Load(fileName)` Loads a specified file from the "Content" folder if exists.
+`Load(fileName)` Loads a specified file from the "Content" folder if exists.\
+`GetFullFilePath(fileName)` Gets the full file path of the specified resource file.
 ### Window `Handles the size and other settings of the app's window.`
 `MAIN_WIDTH` Represents a const of the default width of the window.
 `MAIN_HEIGHT` Represents a const of the default height of the window.
