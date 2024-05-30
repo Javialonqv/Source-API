@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Globalization;
 
 namespace API
 {
@@ -52,6 +53,16 @@ namespace API
         public static bool isDebugBuild
         {
             get { return Debug.isDebugBuild; }
+        }
+        /// <summary>
+        /// Specifies the system language of the current user.
+        /// </summary>
+        public static string systemLanguage
+        {
+            get
+            {
+                return CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+            }
         }
 
         #region Is Focus
