@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using NAudio.Wave;
 
@@ -86,11 +87,10 @@ namespace API
         {
             try
             {
-                using (var audioFile = new AudioFileReader(audioPath))
-                using (var outputDevice = new WaveOutEvent())
-                {
-                    outputDevice.Init(audioFile);
-                }
+                AudioFileReader reader = new AudioFileReader(audioPath);
+                WaveOutEvent outputDevice = new WaveOutEvent();
+                outputDevice.Init(reader);
+                outputDevice.Play();
             }
             catch
             {
