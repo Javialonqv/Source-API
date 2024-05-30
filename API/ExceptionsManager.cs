@@ -78,6 +78,15 @@ namespace API
             ShowError($"Can't find the \"{resourceName}\" file INSIDE of the \"Content\" folder.");
         }
         /// <summary>
+        /// Prints an error that says the specified resource can't be deserealized as the specified type.
+        /// </summary>
+        /// <param name="resourceName">The name of the resource to deserealize.</param>
+        /// <param name="type">The type trying to convert to.</param>
+        public static void ErrorDeserealizingSpecifiedResources(string resourceName, Type type)
+        {
+            ShowError($"Error deserealizing the \"{resourceName}\" as \"{type.FullName}\".");
+        }
+        /// <summary>
         /// Prints an error that says the object of the specified type can't be serialized.
         /// </summary>
         /// <param name="objectType">The type of the object trying to serialize.</param>
