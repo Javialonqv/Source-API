@@ -17,6 +17,12 @@ namespace App
             Debug.LogInfo("Test Info Message.");
             Debug.LogWarning(Resources.Load<string>("HELLO_WORLD"));
             Application.Run("google.com");
+#if DEBUG_BUILD
+            Debug.LogInfo("DEBUG!!");
+#endif
+#if RELEASE_BUILD
+            Debug.LogInfo("RELEASE!!");
+#endif
             Console.ReadKey();
         }
     }

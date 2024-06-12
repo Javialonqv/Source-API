@@ -21,7 +21,7 @@ namespace Compiler
         /// <returns>Returns if the build has been successfully.</returns>
         public static bool BuildAsDLL(string csprojPath, string outputPath, bool showLog, bool saveLog)
         {
-            string argument = $"build \"{csprojPath}\" -o \"{outputPath}\" -c Release /p:DebugType=none /p:OutputType=Library";
+            string argument = $"build \"{csprojPath}\" -o \"{outputPath}\" -c Release /p:DebugType=none /p:OutputType=Library /p:DefineConstants=RELEASE_BUILD";
 
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
@@ -53,7 +53,7 @@ namespace Compiler
         /// <returns>Returns if the build has been successfully.</returns>
         public static bool BuildAsExe(string csprojPath, string outputPath, bool showLog, bool saveLog)
         {
-            string argument = $"build \"{csprojPath}\" -o \"{outputPath}\" -c Release /p:DebugType=none /p:OutputType=Exe";
+            string argument = $"build \"{csprojPath}\" -o \"{outputPath}\" -c Release /p:DebugType=none /p:OutputType=Exe /p:DefineConstants=RELEASE_BUILD";
 
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
