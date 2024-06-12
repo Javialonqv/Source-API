@@ -65,6 +65,11 @@ The files located inside this folder can be loaded later using the `Resources` A
 `title` Represents the title of the window.
 `SetWindowSize(width, height, setBufferSize)` Sets the window size.
 
+## Preprocessor directives
+There are 2 preprocessor directives that can be accessed at any time from any project, which are as follows:\
+`DEBUG_BUILD`: Specifies if the current build is a debug one (builded as default with Visual Studio).\
+`RELEASE_BUILD` Specifies if the current build is a release one (builded with the Source Compiler).
+
 ## Compiler
 All the App builds created by Visual Studio are marked as `Debug builds`, to create a release build, you need to use the `Source Compiler`, these custom builds have the following structure:
 - Content
