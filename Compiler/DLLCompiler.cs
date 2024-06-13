@@ -101,10 +101,13 @@ namespace Compiler
         public static void BuildContentFolder(string projContentPath, string contentPath)
         {
             Directory.CreateDirectory(contentPath);
+            List<string> usedNames = new List<string>();
             Dictionary<string, string> resources = new Dictionary<string, string>();
             foreach (string file in Directory.GetFiles(projContentPath, "*.*", SearchOption.AllDirectories))
             {
                 string randomName = ResourcesData.GenerateRandomName();
+                // Generate new names until a new one appears:
+                while (usedNames.Contains(randomName)) { randomName = ResourcesData.GenerateRandomName(); }
                 string newFilePath = Path.Combine(contentPath, randomName);
                 if (!Directory.Exists(Path.GetDirectoryName(newFilePath)))
                     { Directory.CreateDirectory(Path.GetDirectoryName(newFilePath)); }
@@ -115,6 +118,7 @@ namespace Compiler
                 // Add the key and new file path into the resources list:
                 string newFileName = randomName;
                 resources.Add(key.Replace('\\', '/'), newFileName);
+                usedNames.Add(randomName);
             }
             ResourcesData.CreateResourcesData(resources, CompilerPaths.resourcesDataFilePath);
         }
