@@ -88,6 +88,12 @@
     <Compile Include="ConfigFile.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="ExceptionsManager.cs" />
+    <Compile Include="GameEngine\Components\Component.cs" />
+    <Compile Include="GameEngine\Game.cs" />
+    <Compile Include="GameEngine\GameObject.cs" />
+    <Compile Include="GameEngine\MainBrain.cs" />
+    <Compile Include="GameEngine\Time.cs" />
+    <Compile Include="GameEngine\Vector2.cs" />
     <Compile Include="JsonUtility.cs" />
     <Compile Include="Paths.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
