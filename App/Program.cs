@@ -24,12 +24,6 @@ namespace App
 #if RELEASE_BUILD
             Debug.LogInfo("RELEASE!!");
 #endif
-
-            Game game = new Game();
-            GameObject obj = new GameObject("Obj 1");
-            GameObject obj2 = new GameObject("Obj 2");
-            obj.AddComponent<testclass>();
-            game.Run();
             Console.ReadKey();
         }
     }
