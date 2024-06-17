@@ -126,6 +126,15 @@ namespace API.GameEngine
             return (T)components.Find(c => c is T);
         }
         /// <summary>
+        /// Gets all the components as the same type from the GameObject.
+        /// </summary>
+        /// <typeparam name="T">The component type to get.</typeparam>
+        /// <returns>An array of components from the specified type.</returns>
+        public T[] GetComponents<T>() where T : Component
+        {
+            return components.Where(c => c is T).Select(c => c as T).ToArray();
+        }
+        /// <summary>
         /// Tries to get a component from the GameObject.
         /// </summary>
         /// <typeparam name="T">The component type to get.</typeparam>
