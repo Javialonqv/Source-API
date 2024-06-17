@@ -35,7 +35,7 @@ namespace API.GameEngine
         /// </summary>
         public Game()
         {
-            if (gameInstance != null) { return; }
+            if (gameInstance != null) { throw new InvalidOperationException("A Game class instance has already been initialized."); }
             gameInstance = this;
         }
 

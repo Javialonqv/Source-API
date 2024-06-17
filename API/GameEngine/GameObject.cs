@@ -20,6 +20,17 @@ namespace API.GameEngine
         /// Specifies the position of the object.
         /// </summary>
         public Vector2 position { get; set; }
+        GameObject Parent;
+        public GameObject parent
+        {
+            get { return Parent; }
+            set
+            {
+                Parent = value;
+                Parent.childs.Add(this);
+            }
+        }
+        internal List<GameObject> childs = new List<GameObject>();
         /// <summary>
         /// Specifies the list of components this object has.
         /// </summary>
@@ -30,6 +41,10 @@ namespace API.GameEngine
         /// </summary>
         public GameObject()
         {
+            // In case the Game class hasn't been initialized yet, throw an error.
+            if (Game.gameInstance == null) { throw new InvalidOperationException("The Game class hasn't been initialized."); }
+
+            // Just to change the GameObject's game. It can't be two or more with the same name.
             if (Find("New GameObject") == null) { name = "New GameObject"; }
             else
             {
@@ -48,7 +63,20 @@ namespace API.GameEngine
         /// <param name="name">The name of the object.</param>
         public GameObject(string name)
         {
-            this.name = name;
+            // In case the Game class hasn't been initialized yet, throw an error.
+            if (Game.gameInstance == null) { throw new InvalidOperationException("The Game class hasn't been initialized."); }
+
+            // Just to change the GameObject's game. It can't be two or more with the same name.
+            if (Find("New GameObject") == null) { this.name = name; }
+            else
+            {
+                int i = 1;
+                while (true)
+                {
+                    if (Find($"{name} ({i})") != null) { i++; }
+                    else { this.name = $"{name} ({i})"; break; }
+                }
+            }
             Game.gameInstance.gameObjects.Add(this);
         }
 
@@ -86,6 +114,12 @@ namespace API.GameEngine
         {
             component = (T)components.FirstOrDefault(c => c is T);
             return component != null;
+        }
+
+        public GameObject GetChild(int index)
+        {
+            if (index > childs.Count - 1) { throw new IndexOutOfRangeException("The index was outside of the number of childs of the current object."); }
+            return childs[index];
         }
 
         /// <summary>
