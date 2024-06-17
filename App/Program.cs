@@ -24,6 +24,10 @@ namespace App
 #if RELEASE_BUILD
             Debug.LogInfo("RELEASE!!");
 #endif
+            Game game = new Game();
+            GameObject @object = new GameObject();
+            @object.AddComponent<MainBrainTest>();
+            game.Run();
             Console.ReadKey();
         }
     }

@@ -9,6 +9,9 @@ namespace API.GameEngine
     public class Vector2
     {
         float X, Y;
+        /// <summary>
+        /// X component of the vector.
+        /// </summary>
         public float x
         {
             get { return X; }
@@ -17,6 +20,9 @@ namespace API.GameEngine
                 if (value < 0) { X = 0; } else { X = value; }
             }
         }
+        /// <summary>
+        /// Y component of the vector.
+        /// </summary>
         public float y
         {
             get { return Y; }
@@ -26,6 +32,11 @@ namespace API.GameEngine
             }
         }
 
+        /// <summary>
+        /// Creates a new Vector2 with the specified values.
+        /// </summary>
+        /// <param name="x">X component of the vector.</param>
+        /// <param name="y">Y component of the vector.</param>
         public Vector2(float x, float y)
         {
             this.x = x;
