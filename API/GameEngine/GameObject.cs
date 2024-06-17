@@ -21,6 +21,9 @@ namespace API.GameEngine
         /// </summary>
         public Vector2 position { get; set; }
         GameObject Parent;
+        /// <summary>
+        /// Specifies the parent object of this one.
+        /// </summary>
         public GameObject parent
         {
             get { return Parent; }
@@ -30,6 +33,9 @@ namespace API.GameEngine
                 Parent.childs.Add(this);
             }
         }
+        /// <summary>
+        /// Specifies the list of the childs of this object.
+        /// </summary>
         internal List<GameObject> childs = new List<GameObject>();
         /// <summary>
         /// Specifies the list of components this object has.
@@ -116,6 +122,12 @@ namespace API.GameEngine
             return component != null;
         }
 
+        /// <summary>
+        /// Returns a child by index.
+        /// </summary>
+        /// <param name="index">The index of the child to return.</param>
+        /// <returns>Returns a child by index.</returns>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public GameObject GetChild(int index)
         {
             if (index > childs.Count - 1) { throw new IndexOutOfRangeException("The index was outside of the number of childs of the current object."); }
