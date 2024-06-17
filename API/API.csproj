@@ -90,7 +90,6 @@
     <Compile Include="ExceptionsManager.cs" />
     <Compile Include="GameEngine\Components\Component.cs" />
     <Compile Include="GameEngine\Game.cs" />
-    <Compile Include="GameEngine\GameEngineClassTemplateFile.cs" />
     <Compile Include="GameEngine\GameObject.cs" />
     <Compile Include="GameEngine\MainBrain.cs" />
     <Compile Include="GameEngine\Time.cs" />

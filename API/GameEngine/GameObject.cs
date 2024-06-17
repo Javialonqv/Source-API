@@ -30,7 +30,16 @@ namespace API.GameEngine
         /// </summary>
         public GameObject()
         {
-            name = "New GameObject";
+            if (Find("New GameObject") == null) { name = "New GameObject"; }
+            else
+            {
+                int i = 1;
+                while (true)
+                {
+                    if (Find($"New GameObject ({i})") != null) { i++; }
+                    else { name = $"New GameObject ({i})"; break; }
+                }
+            }
             Game.gameInstance.gameObjects.Add(this);
         }
         /// <summary>
