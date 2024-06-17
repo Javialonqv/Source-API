@@ -41,6 +41,21 @@ namespace API.GameEngine
         /// Specifies the list of components this object has.
         /// </summary>
         internal List<Component> components = new List<Component>();
+        /// <summary>
+        /// Specifies if the current object is active in the hierarchy of objects.
+        /// </summary>
+        public bool activeInHierarchy
+        {
+            get
+            {
+                if (Parent == null) { return activeSelf; }
+                else { return Parent.activeInHierarchy; }
+            }
+        }
+        /// <summary>
+        /// The local active state of this GameObject.
+        /// </summary>
+        public bool activeSelf { get; private set; }
 
         /// <summary>
         /// Creates a new GameObject with a default name.
@@ -133,6 +148,14 @@ namespace API.GameEngine
             if (index > childs.Count - 1) { throw new IndexOutOfRangeException("The index was outside of the number of childs of the current object."); }
             return childs[index];
         }
+        /// <summary>
+        /// Activates/Deactivates the GameObject, depending on the given true or false value.
+        /// </summary>
+        /// <param name="state">The new state of the GameObject.</param>
+        public void SetActive(bool state)
+        {
+            activeSelf = state;
+        }
 
         /// <summary>
         /// Tries to find a GameObject with the specified name.
@@ -141,7 +164,18 @@ namespace API.GameEngine
         /// <returns>The GameObject of the specified name if it exists.</returns>
         public static GameObject Find(string name)
         {
-            return Game.gameInstance.gameObjects.Find(obj => obj.name == name);
+            return Game.gameInstance.gameObjects.Find(obj => obj.name == name && obj.activeInHierarchy);
+        }
+        /// <summary>
+        /// Tries to find a GameObject with the specified name.
+        /// </summary>
+        /// <param name="name">The name of the object.</param>
+        /// <param name="includeInactive">Specifies if it should look for inactive objects in hierarchy too.</param>
+        /// <returns>The GameObject of the specified name if it exists.</returns>
+        public static GameObject Find(string name, bool includeInactive)
+        {
+            if (includeInactive) { return Game.gameInstance.gameObjects.Find(obj => obj.name == name); } // Just look for ACTIVE objects.
+            else { return Game.gameInstance.gameObjects.Find(obj => obj.name == name && obj.activeInHierarchy); } // Look for all of them.
         }
     }
 }
