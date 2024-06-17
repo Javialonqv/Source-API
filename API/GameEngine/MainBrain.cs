@@ -97,5 +97,15 @@ namespace API.GameEngine
             }));
             thread.Start();
         }
+
+        internal static void CallMethod(string methodName, object instance)
+        {
+            Type type = instance.GetType();
+            MethodInfo methodInfo = type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
+            if (methodInfo != null)
+            {
+                methodInfo.Invoke(instance, null);
+            }
+        }
     }
 }

@@ -1,23 +1,24 @@
-﻿using System;
+﻿using API;
+using API.GameEngine;
+using App;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using API;
-using API.GameEngine;
 
-namespace $rootnamespace$
+namespace App
 {
-    public class $safeitemname$ : MainBrain
+    public class TestClass : MainBrain
     {
         // Start is called at the start of the runtime.
         void Start()
         {
-            
+
         }
 
         // Update is called every frame.
         void Update()
         {
-            
+            Debug.Log("HELLO WORLD!");
         }
     }
 }

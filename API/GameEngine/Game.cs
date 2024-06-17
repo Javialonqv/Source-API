@@ -75,7 +75,7 @@ namespace API.GameEngine
             {
                 foreach (Component component in obj.components) // Iterate for each componenet of the currrent gameobject.
                 {
-                    if (component is MainBrain) { ((MainBrain)component).Start(); } // If the component is a MainBrain class, call the method.
+                    if (component is MainBrain) { MainBrain.CallMethod("Start", (MainBrain)component); } // If the component is a MainBrain class, call the method.
                 }
             }
         }
@@ -88,7 +88,7 @@ namespace API.GameEngine
             {
                 foreach (Component component in obj.components) // Iterate for each componenet of the currrent gameobject.
                 {
-                    if (component is MainBrain) { ((MainBrain)component).Update(); } // If the component is a MainBrain class, call the method.
+                    if (component is MainBrain) { MainBrain.CallMethod("Update", (MainBrain)component); } // If the component is a MainBrain class, call the method.
                 }
             }
         }
