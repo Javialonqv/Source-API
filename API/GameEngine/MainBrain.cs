@@ -71,5 +71,14 @@ namespace API.GameEngine
         {
             return gameObject.TryGetComponent<T>(out component);
         }
+
+        /// <summary>
+        /// Logs an object if the logger it's active.
+        /// </summary>
+        /// <param name="message">The object to print on the logger's console.</param>
+        public static void print(object message)
+        {
+            Debug.Log(message);
+        }
     }
 }
