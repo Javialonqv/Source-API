@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
+using System.Threading;
 
 namespace API.GameEngine
 {
@@ -79,6 +81,21 @@ namespace API.GameEngine
         public static void print(object message)
         {
             Debug.Log(message);
+        }
+
+        /// <summary>
+        /// Invokes a method in time seconds.
+        /// </summary>
+        /// <param name="method">The method to invoke.</param>
+        /// <param name="delay">The amount of time in seconds to wait until the method is executed.</param>
+        public static void Invoke(Action method, float delay)
+        {
+            Thread thread = new Thread(new ThreadStart(() =>
+            {
+                Thread.Sleep((int)(delay * 1000));
+                method();
+            }));
+            thread.Start();
         }
     }
 }
