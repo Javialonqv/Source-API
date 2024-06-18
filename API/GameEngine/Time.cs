@@ -11,23 +11,23 @@ namespace API.GameEngine
     /// </summary>
     public static class Time
     {
-        static int realTime;
+        static float realTime;
         /// <summary>
         /// The elapsed time since the runtime start.
         /// </summary>
-        public static int time
+        public static float time
         {
             get { return realTime; }
             internal set { realTime = value; }
         }
-        static int DeltaTime;
+        static float DeltaTime;
         /// <summary>
         /// The interval in seconds from the last frame to the current one.
         /// </summary>
-        public static int deltaTime
+        public static float deltaTime
         {
             get { return DeltaTime; }
-            internal set { DeltaTime = value; }
+            internal set { DeltaTime = value / 1000; }
         }
     }
 }
