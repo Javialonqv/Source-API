@@ -24,10 +24,17 @@ namespace App
 #if RELEASE_BUILD
             Debug.LogInfo("RELEASE!!");
 #endif
+
             Game game = new Game();
-            GameObject obj = new GameObject();
-            obj.AddComponent<TestClass>();
-            game.Run();
+            GameObject obj = new GameObject("Test GameObject");
+            obj.position = new Vector2(0, 0);
+            Debug.Log("X: " + obj.position.x + " Y: " + obj.position.y);
+            Console.SetCursorPosition((int)obj.realPosition.x, (int)obj.realPosition.y);
+            Console.Write("0");
+            obj.position = new Vector2(0, 1);
+            Debug.Log("X: " + obj.position.x + " Y: " + obj.position.y);
+            Console.SetCursorPosition((int)obj.realPosition.x, (int)obj.realPosition.y);
+            Console.Write("1");
             Console.ReadKey();
         }
     }

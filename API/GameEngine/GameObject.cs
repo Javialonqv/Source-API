@@ -17,9 +17,27 @@ namespace API.GameEngine
         /// </summary>
         public string name { get; set; }
         /// <summary>
+        /// Returns the position of the object in console coordenates (pivot at top left).
+        /// </summary>
+        public Vector2 realPosition { get; private set; }
+        /// <summary>
         /// Specifies the position of the object.
         /// </summary>
-        public Vector2 position { get; set; }
+        public Vector2 position
+        {
+            get
+            {
+                int x = (int)(realPosition.x - Console.BufferWidth / 2);
+                int y = (int)(Console.BufferHeight / 2 - realPosition.y);
+                return new Vector2(x, y);
+            }
+            set
+            {
+                float x = Console.BufferWidth / 2 - value.x;
+                float y = Console.BufferHeight / 2 - value.y;
+                realPosition = new Vector2(x, y);
+            }
+        }
         GameObject Parent;
         /// <summary>
         /// Specifies the parent object of this one.
