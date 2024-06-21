@@ -14,23 +14,6 @@ namespace API.GameEngine
     public class MainBrain : Component
     {
         /// <summary>
-        /// The GameObject where the class is attached.
-        /// </summary>
-        public GameObject gameObject { get; internal set; }
-        /// <summary>
-        /// The position of the GameObject where the class is attached.
-        /// </summary>
-        public Vector2 positon { get { return gameObject.position; } set { gameObject.position = value; } }
-
-        /// <summary>
-        /// Creates a new instance of a MainBrain class with a new GameObject.
-        /// </summary>
-        public MainBrain()
-        {
-            gameObject = new GameObject();
-        }
-
-        /// <summary>
         /// This method is called at the start of the runtime.
         /// </summary>
         public virtual void Start()

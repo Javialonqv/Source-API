@@ -27,8 +27,8 @@ namespace API.GameEngine
         {
             get
             {
-                int x = (int)(realPosition.x - Console.BufferWidth / 2);
-                int y = (int)(Console.BufferHeight / 2 - realPosition.y);
+                float x = (realPosition.x - Console.BufferWidth / 2);
+                float y = (Console.BufferHeight / 2 - realPosition.y);
                 return new Vector2(x, y);
             }
             set
@@ -94,6 +94,8 @@ namespace API.GameEngine
                     else { name = $"New GameObject ({i})"; break; }
                 }
             }
+            position = new Vector2(0, 0);
+
             Game.gameInstance.gameObjects.Add(this);
         }
         /// <summary>
@@ -116,6 +118,8 @@ namespace API.GameEngine
                     else { this.name = $"{name} ({i})"; break; }
                 }
             }
+            position = new Vector2(0, 0);
+
             Game.gameInstance.gameObjects.Add(this);
         }
 
@@ -127,10 +131,7 @@ namespace API.GameEngine
         public T AddComponent<T>() where T : Component, new()
         {
             Component newComponent = new T();
-            if (typeof(MainBrain).IsAssignableFrom(typeof(T)))
-            {
-                ((MainBrain)newComponent).gameObject = this;
-            }
+            newComponent.gameObject = this;
             components.Add(newComponent);
             return (T)newComponent;
         }

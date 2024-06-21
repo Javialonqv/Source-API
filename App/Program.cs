@@ -27,14 +27,9 @@ namespace App
 
             Game game = new Game();
             GameObject obj = new GameObject("Test GameObject");
-            obj.position = new Vector2(0, 0);
-            Debug.Log("X: " + obj.position.x + " Y: " + obj.position.y);
-            Console.SetCursorPosition((int)obj.realPosition.x, (int)obj.realPosition.y);
-            Console.Write("0");
-            obj.position = new Vector2(0, 1);
-            Debug.Log("X: " + obj.position.x + " Y: " + obj.position.y);
-            Console.SetCursorPosition((int)obj.realPosition.x, (int)obj.realPosition.y);
-            Console.Write("1");
+            obj.AddComponent<Text>().text = "HELLO WORLD";
+            obj.AddComponent<TestClassMove>();
+            game.Run();
             Console.ReadKey();
         }
     }

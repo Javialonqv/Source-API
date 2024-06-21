@@ -45,6 +45,7 @@ namespace API.GameEngine
         public void Run()
         {
             if (gameInstance != this) { return; }
+            Console.CursorVisible = false;
             int frameTime = 1000 / targetFrameRate;
             isRunning = true;
             Start();
@@ -52,6 +53,7 @@ namespace API.GameEngine
             {
                 DateTime startTime = DateTime.Now;
 
+                Render();
                 Update();
 
                 // Calculate delta time and sleep the thread.
@@ -63,6 +65,7 @@ namespace API.GameEngine
                 {
                     Thread.Sleep(frameTime - elapsed);
                 }
+                Console.Clear();
             }
         }
 
@@ -89,6 +92,20 @@ namespace API.GameEngine
                 foreach (Component component in obj.components) // Iterate for each componenet of the currrent gameobject.
                 {
                     if (component is MainBrain) { MainBrain.CallMethod("Update", (MainBrain)component); } // If the component is a MainBrain class, call the method.
+                }
+            }
+        }
+
+        /// <summary>
+        /// Calls all the Render() method on all the components instantiaded classes.
+        /// </summary>
+        void Render()
+        {
+            foreach (GameObject obj in gameObjects) // Iterate for each gameobject.
+            {
+                foreach (Component component in obj.components) // Iterate for each componenet of the currrent gameobject.
+                {
+                    component.Render();
                 }
             }
         }

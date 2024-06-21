@@ -89,6 +89,7 @@
     <Compile Include="Debug.cs" />
     <Compile Include="ExceptionsManager.cs" />
     <Compile Include="GameEngine\Components\Component.cs" />
+    <Compile Include="GameEngine\Components\Text.cs" />
     <Compile Include="GameEngine\Game.cs" />
     <Compile Include="GameEngine\GameObject.cs" />
     <Compile Include="GameEngine\MainBrain.cs" />
