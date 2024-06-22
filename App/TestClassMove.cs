@@ -18,7 +18,7 @@ namespace App
         // Update is called every frame.
         void Update()
         {
-            position += new Vector2(0, 0.1f);
+            if (Input.GetKeyUp(ConsoleKey.Spacebar)) position += new Vector2(0, 1f);
         }
     }
 }

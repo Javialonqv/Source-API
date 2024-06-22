@@ -92,6 +92,7 @@
     <Compile Include="GameEngine\Components\Text.cs" />
     <Compile Include="GameEngine\Game.cs" />
     <Compile Include="GameEngine\GameObject.cs" />
+    <Compile Include="GameEngine\Input.cs" />
     <Compile Include="GameEngine\MainBrain.cs" />
     <Compile Include="GameEngine\Time.cs" />
     <Compile Include="GameEngine\Vector2.cs" />

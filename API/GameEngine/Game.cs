@@ -87,6 +87,7 @@ namespace API.GameEngine
         /// </summary>
         void Update()
         {
+            Input.Update();
             foreach (GameObject obj in gameObjects) // Iterate for each gameobject.
             {
                 foreach (Component component in obj.components) // Iterate for each componenet of the currrent gameobject.
