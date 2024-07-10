@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,15 +12,17 @@ namespace API.GameEngine
         static HashSet<ConsoleKey> currentKeys = new HashSet<ConsoleKey>();
         static HashSet<ConsoleKey> previousKeys = new HashSet<ConsoleKey>();
 
+        [DllImport("user32.dll")]
+        static extern short GetAsyncKeyState(int vKey);
+
         internal static void Update()
         {
             previousKeys = new HashSet<ConsoleKey>(currentKeys);
             currentKeys.Clear();
 
-            while (Console.KeyAvailable)
+            for (int i = 0; i < 256; i++)
             {
-                var key = Console.ReadKey(true).Key;
-                currentKeys.Add(key);
+                if (GetAsyncKeyState(i) < 0) { currentKeys.Add((ConsoleKey)i); }
             }
         }
 

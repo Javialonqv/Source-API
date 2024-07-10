@@ -12,7 +12,7 @@ namespace API.GameEngine
 
         internal override void Render()
         {
-            Console.SetCursorPosition((int)realPosition.x, (int)realPosition.y);
+            Console.SetCursorPosition((int)position.x, (int)position.y);
             Console.Write(text);
         }
     }

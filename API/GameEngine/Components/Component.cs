@@ -16,10 +16,6 @@ namespace API.GameEngine
         /// The position of the GameObject where the class is attached.
         /// </summary>
         public Vector2 position { get { return gameObject.position; } set { gameObject.position = value; } }
-        /// <summary>
-        /// The position of the GameObject where the class is attached.
-        /// </summary>
-        public Vector2 realPosition { get { return gameObject.realPosition; } }
 
         /// <summary>
         /// Creates a new instance of a Component class with a new GameObject.

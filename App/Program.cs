@@ -11,7 +11,6 @@ namespace App
 {
     internal class Program
     {
-        static AudioSource src;
         static void Main(string[] args)
         {
             Application.Init("Test App");
