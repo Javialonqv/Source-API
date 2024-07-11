@@ -9,6 +9,7 @@ namespace App
 {
     public class TestClassMove : MainBrain
     {
+#pragma warning disable
         // Start is called at the start of the runtime.
         void Start()
         {
