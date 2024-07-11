@@ -3,5 +3,8 @@
   "mainAppProjName": "App",
   "mainMethodClassName": "Program",
   "packageName": "TestApp",
-  "logAsMessageBoxWhenLoggerDisabled": false
+  "logAsMessageBoxWhenLoggerDisabled": false,
+  "buttons": {
+    "Jump": [ "Spacebar", "UpArrow" ],
+  }
 }

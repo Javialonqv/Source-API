@@ -71,5 +71,69 @@ namespace API.GameEngine
         {
             return !currentKeys.Contains(consoleKey) && previousKeys.Contains(consoleKey);
         }
+
+        /// <summary>
+        /// Returns true while the specified button identified as buttonName is pressed.
+        /// </summary>
+        /// <param name="buttonName">The name of the button.</param>
+        /// <returns></returns>
+        public static bool GetButton(string buttonName)
+        {
+            if (ConfigFile.loaded.buttons.ContainsKey(buttonName))
+            {
+                List<ConsoleKey> keys = new List<ConsoleKey>();
+                foreach (string key in ConfigFile.loaded.buttons[buttonName])
+                {
+                    if (Enum.TryParse(key, true, out ConsoleKey consoleKey)) { keys.Add(consoleKey); }
+                }
+                foreach (ConsoleKey consoleKey in keys)
+                {
+                    if (currentKeys.Contains(consoleKey)) { return true; }
+                }
+            }
+            return false;
+        }
+        /// <summary>
+        /// Returns true during the frame the user is pressing the specified button identified as buttonName.
+        /// </summary>
+        /// <param name="buttonName">The name of the button.</param>
+        /// <returns></returns>
+        public static bool GetButtonDown(string buttonName)
+        {
+            if (ConfigFile.loaded.buttons.ContainsKey(buttonName))
+            {
+                List<ConsoleKey> keys = new List<ConsoleKey>();
+                foreach (string key in ConfigFile.loaded.buttons[buttonName])
+                {
+                    if (Enum.TryParse(key, true, out ConsoleKey consoleKey)) { keys.Add(consoleKey); }
+                }
+                foreach (ConsoleKey consoleKey in keys)
+                {
+                    if (currentKeys.Contains(consoleKey) && !previousKeys.Contains(consoleKey)) { return true; }
+                }
+            }
+            return false;
+        }
+        /// <summary>
+        /// Returns true during the frame the user is releasing the specified button identified as buttonName.
+        /// </summary>
+        /// <param name="buttonName">The name of the button.</param>
+        /// <returns></returns>
+        public static bool GetButtonUp(string buttonName)
+        {
+            if (ConfigFile.loaded.buttons.ContainsKey(buttonName))
+            {
+                List<ConsoleKey> keys = new List<ConsoleKey>();
+                foreach (string key in ConfigFile.loaded.buttons[buttonName])
+                {
+                    if (Enum.TryParse(key, true, out ConsoleKey consoleKey)) { keys.Add(consoleKey); }
+                }
+                foreach (ConsoleKey consoleKey in keys)
+                {
+                    if (!currentKeys.Contains(consoleKey) && previousKeys.Contains(consoleKey)) { return true; }
+                }
+            }
+            return false;
+        }
     }
 }

@@ -50,6 +50,10 @@ namespace API
         /// Specifies if should log a message as Message Box when the Source Logger is disabled or connection is lost, instead of throwing an exception.
         /// </summary>
         public bool logAsMessageBoxWhenLoggerDisabled { get; set; } = false;
+        /// <summary>
+        /// Specifies the buttons used by the Source Game Engine to specific actions.
+        /// </summary>
+        public Dictionary<string, string[]> buttons { get; set; }
 
         /// <summary>
         /// Inits an instance of the ConfigFile class by reading the SourceConfig.json file.
