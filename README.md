@@ -89,4 +89,4 @@ All this project is inside of ONE single class. This is maded to make a connecti
 When the app throws a `Debug.Log()`, `Debug.LogInfo()`, etc. If the app is succesfully connected with a Source Logger, the logger shows the log object.
 
 ## Executing the app
-See [Source Logger](https://github.com/Javialonqv/Source-Launcher) for more details.
+See [Source Launcher](https://github.com/Javialonqv/Source-Launcher) for more details.
