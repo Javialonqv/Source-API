@@ -18,8 +18,8 @@ This file contains some needed data:\
 `mainAppProjName` Specifies the name of the project where the Main method is located. By default is `App`.\
 `mainMethodClassName` Specifies the name of the class where the Main method is located. By default is `Program`.\
 `packageName` Specifies the name of the package of the app.\
-`logAsMessageBoxWhenLoggerDisabled` Specifies if should log a message as Message Box when the Source Logger is disabled or connection is lost, instead of throwing an exception.
-`buttons` See more about this in the [Game Engine](# Source Game Engine) page.
+`logAsMessageBoxWhenLoggerDisabled` Specifies if should log a message as Message Box when the Source Logger is disabled or connection is lost, instead of throwing an exception.\
+`buttons` See more about this in the [Game Engine](#SourceGameEngine) page.
 
 ## Content Folder
 This folder is located **ONLY** in the Main App Project (defined by the SourceConfig.json file).\
