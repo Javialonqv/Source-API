@@ -19,7 +19,7 @@ This file contains some needed data:\
 `mainMethodClassName` Specifies the name of the class where the Main method is located. By default is `Program`.\
 `packageName` Specifies the name of the package of the app.\
 `logAsMessageBoxWhenLoggerDisabled` Specifies if should log a message as Message Box when the Source Logger is disabled or connection is lost, instead of throwing an exception.
-`buttons` See more about this in the [Game Engine](#GameEngine) page.
+`buttons` See more about this in the [Game Engine](# Source Game Engine) page.
 
 ## Content Folder
 This folder is located **ONLY** in the Main App Project (defined by the SourceConfig.json file).\
@@ -92,7 +92,7 @@ When the app throws a `Debug.Log()`, `Debug.LogInfo()`, etc. If the app is succe
 ## Executing the app
 See [Source Launcher](https://github.com/Javialonqv/Source-Launcher) for more details.
 
-# Source Game Engine {#GameEngine}
+# Source Game Engine
 The integrated "Game Engine" in the Source API.
 
 ## Getting Started
