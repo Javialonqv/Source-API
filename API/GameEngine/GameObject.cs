@@ -55,7 +55,7 @@ namespace API.GameEngine
         /// <summary>
         /// The local active state of this GameObject.
         /// </summary>
-        public bool activeSelf { get; private set; }
+        public bool activeSelf { get; private set; } = true;
 
         /// <summary>
         /// Creates a new GameObject with a default name.
@@ -89,8 +89,8 @@ namespace API.GameEngine
             // In case the Game class hasn't been initialized yet, throw an error.
             if (Game.gameInstance == null) { throw new InvalidOperationException("The Game class hasn't been initialized."); }
 
-            // Just to change the GameObject's game. It can't be two or more with the same name.
-            if (Find("New GameObject") == null) { this.name = name; }
+            // Just to change the GameObject's name. It can't be two or more with the same name.
+            if (Find(name) == null) { this.name = name; }
             else
             {
                 int i = 1;
