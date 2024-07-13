@@ -26,7 +26,7 @@ namespace API.GameEngine
         /// </summary>
         internal List<GameObject> gameObjects = new List<GameObject>();
         /// <summary>
-        /// Specifies the frame rate of the game/app.
+        /// Specifies the frame rate of the game.
         /// </summary>
         internal int targetFrameRate = 30;
 
@@ -35,7 +35,7 @@ namespace API.GameEngine
         /// </summary>
         public Game()
         {
-            if (gameInstance != null) { throw new InvalidOperationException("A Game class instance has already been initialized."); }
+            if (gameInstance != null) { ExceptionsManager.GameInstanceAlreadyCreated(); return; }
             gameInstance = this;
         }
 
@@ -44,7 +44,7 @@ namespace API.GameEngine
         /// </summary>
         public void Run()
         {
-            if (gameInstance != this) { return; }
+            if (gameInstance != this) { ExceptionsManager.GameInstanceAlreadyCreated(); return; }
             Console.CursorVisible = false;
             int frameTime = 1000 / targetFrameRate;
             isRunning = true;

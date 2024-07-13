@@ -63,7 +63,7 @@ namespace API.GameEngine
         public GameObject()
         {
             // In case the Game class hasn't been initialized yet, throw an error.
-            if (Game.gameInstance == null) { throw new InvalidOperationException("The Game class hasn't been initialized."); }
+            if (Game.gameInstance == null) { ExceptionsManager.GameClassNotInitializedYet(); return; }
 
             // Just to change the GameObject's game. It can't be two or more with the same name.
             if (Find("New GameObject") == null) { name = "New GameObject"; }
@@ -87,7 +87,7 @@ namespace API.GameEngine
         public GameObject(string name)
         {
             // In case the Game class hasn't been initialized yet, throw an error.
-            if (Game.gameInstance == null) { throw new InvalidOperationException("The Game class hasn't been initialized."); }
+            if (Game.gameInstance == null) { ExceptionsManager.GameClassNotInitializedYet(); return; }
 
             // Just to change the GameObject's name. It can't be two or more with the same name.
             if (Find(name) == null) { this.name = name; }
@@ -124,6 +124,7 @@ namespace API.GameEngine
         /// <returns>The instance of the component if it exists.</returns>
         public T GetComponent<T>() where T : Component
         {
+            if (components.FirstOrDefault(c => c is T) == null) { ExceptionsManager.CantFindSpecifiedComponent(name); return null; }
             return (T)components.Find(c => c is T);
         }
         /// <summary>
@@ -143,8 +144,16 @@ namespace API.GameEngine
         /// <returns>The specified component really exists?</returns>
         public bool TryGetComponent<T>(out T component) where T : Component
         {
-            component = (T)components.FirstOrDefault(c => c is T);
-            return component != null;
+            try
+            {
+                component = (T)components.FirstOrDefault(c => c is T);
+                return component != null;
+            }
+            catch
+            {
+                component = null;
+                return false;
+            }
         }
 
         /// <summary>
@@ -155,7 +164,7 @@ namespace API.GameEngine
         /// <exception cref="IndexOutOfRangeException"></exception>
         public GameObject GetChild(int index)
         {
-            if (index > childs.Count - 1) { throw new IndexOutOfRangeException("The index was outside of the number of childs of the current object."); }
+            if (index > childs.Count - 1) { ExceptionsManager.IndexOutsideOfBoundsOfTheNumberOfChilds(childs.Count, index); return null; }
             return childs[index];
         }
         /// <summary>
@@ -174,7 +183,7 @@ namespace API.GameEngine
         /// <returns>The GameObject of the specified name if it exists.</returns>
         public static GameObject Find(string name)
         {
-            return Game.gameInstance.gameObjects.Find(obj => obj.name == name && obj.activeInHierarchy);
+            return Game.gameInstance.gameObjects.FirstOrDefault(obj => obj.name == name && obj.activeInHierarchy);
         }
         /// <summary>
         /// Tries to find a GameObject with the specified name.
@@ -184,8 +193,8 @@ namespace API.GameEngine
         /// <returns>The GameObject of the specified name if it exists.</returns>
         public static GameObject Find(string name, bool includeInactive)
         {
-            if (includeInactive) { return Game.gameInstance.gameObjects.Find(obj => obj.name == name); } // Just look for ACTIVE objects.
-            else { return Game.gameInstance.gameObjects.Find(obj => obj.name == name && obj.activeInHierarchy); } // Look for all of them.
+            if (includeInactive) { return Game.gameInstance.gameObjects.FirstOrDefault(obj => obj.name == name); } // Just look for ACTIVE objects.
+            else { return Game.gameInstance.gameObjects.FirstOrDefault(obj => obj.name == name && obj.activeInHierarchy); } // Look for all of them.
         }
     }
 }

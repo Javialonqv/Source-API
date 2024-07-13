@@ -118,6 +118,37 @@ namespace API
         {
             ShowError($"Can't load the audio file at \"{filePath}\".");
         }
+        /// <summary>
+        /// Prints an error that says a Game class instance is already created in the runtime.
+        /// </summary>
+        public static void GameInstanceAlreadyCreated()
+        {
+            ShowError("A Game class instance has already been initialized.");
+        }
+        /// <summary>
+        /// Prints an error that says the Game class hasn't been initialized yet.
+        /// </summary>
+        public static void GameClassNotInitializedYet()
+        {
+            ShowError($"The Game class hasn't been initialized.");
+        }
+        /// <summary>
+        /// Prints an error that says the specified component in the GameObject wasn't found.
+        /// </summary>
+        /// <param name="gameObjectName">The name of the GameObject.</param>
+        public static void CantFindSpecifiedComponent(string gameObjectName)
+        {
+            ShowError($"Can't find the specified component in the gameobject of name: \"{gameObjectName}\"");
+        }
+        /// <summary>
+        /// Prints an error that says the specified index was outside of the bounds of the child count.
+        /// </summary>
+        /// <param name="childCount">The total number of childs of the object.</param>
+        /// <param name="specifiedIndex">The specified index number.</param>
+        public static void IndexOutsideOfBoundsOfTheNumberOfChilds(int childCount, int specifiedIndex)
+        {
+            ShowError($"Index \"{specifiedIndex}\" was outside of the bounds of the object, the number of childs is \"{childCount}\".");
+        }
 
         /// <summary>
         /// Shows the specified error into a dialog box or logger if it's enabled.
