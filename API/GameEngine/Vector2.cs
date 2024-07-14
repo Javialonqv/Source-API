@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace API.GameEngine
 {
+    /// <summary>
+    /// Represents a two dimensions vector.
+    /// </summary>
     public class Vector2
     {
         float X, Y;
