@@ -76,6 +76,7 @@ namespace API.GameEngine
         {
             foreach (GameObject obj in gameObjects) // Iterate for each gameobject.
             {
+                if (!obj.activeInHierarchy) { continue; } // Check if the object it's active, otherwise, do nothing.
                 foreach (Component component in obj.components) // Iterate for each componenet of the currrent gameobject.
                 {
                     if (component is MainBrain) { MainBrain.CallMethod("Start", (MainBrain)component); } // If the component is a MainBrain class, call the method.
@@ -90,6 +91,7 @@ namespace API.GameEngine
             Input.Update();
             foreach (GameObject obj in gameObjects) // Iterate for each gameobject.
             {
+                if (!obj.activeInHierarchy) { continue; } // Check if the object it's active, otherwise, do nothing.
                 foreach (Component component in obj.components) // Iterate for each componenet of the currrent gameobject.
                 {
                     if (component is MainBrain) { MainBrain.CallMethod("Update", (MainBrain)component); } // If the component is a MainBrain class, call the method.
@@ -104,6 +106,7 @@ namespace API.GameEngine
         {
             foreach (GameObject obj in gameObjects) // Iterate for each gameobject.
             {
+                if (!obj.activeInHierarchy) { continue; } // Check if the object it's active, otherwise, do nothing.
                 foreach (Component component in obj.components) // Iterate for each componenet of the currrent gameobject.
                 {
                     component.Render();
