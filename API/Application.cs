@@ -64,13 +64,29 @@ namespace API
                 return CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
             }
         }
+        /// <summary>
+        /// Specifies the frame rate of the game.
+        /// </summary>
+        public static int targetFrameRate
+        {
+            get
+            {
+                if (GameEngine.Game.gameInstance == null) { ExceptionsManager.GameClassNotInitializedYet(); return 0; }
+                else { return GameEngine.Game.gameInstance.targetFrameRate; }
+            }
+            set
+            {
+                if (GameEngine.Game.gameInstance == null) { ExceptionsManager.GameClassNotInitializedYet(); return; }
+                else { GameEngine.Game.gameInstance.targetFrameRate = value; }
+            }
+        }
 
         #region Is Focus
         [DllImport("user32.dll")]
-        static extern IntPtr GetForegroundWindow();
+        static extern IntPtr GetForegroundWindow(); // To get the current focused window.
         [DllImport("user32.dll")]
-        static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
-        static string GetActiveWindowTitle()
+        static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count); // Returns the title length of a specific window.
+        static string GetActiveWindowTitle() // Gets the title of the current focused window.
         {
             const int nChars = 256;
             StringBuilder Buff = new StringBuilder(nChars);
