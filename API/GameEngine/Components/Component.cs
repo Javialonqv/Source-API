@@ -19,6 +19,10 @@ namespace API.GameEngine
         /// The position of the GameObject where the class is attached.
         /// </summary>
         public Vector2 position { get { return gameObject.position; } set { gameObject.position = value; } }
+        /// <summary>
+        /// Specifies if the specified component is enabled or not.
+        /// </summary>
+        public bool enabled { get; set; } = true;
 
         /// <summary>
         /// Creates a new instance of a Component class with a new GameObject.

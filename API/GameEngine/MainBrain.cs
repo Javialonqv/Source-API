@@ -90,5 +90,10 @@ namespace API.GameEngine
                 methodInfo.Invoke(instance, null);
             }
         }
+
+        internal static bool HasAttribute(Type type, Type attribute)
+        {
+            return Attribute.IsDefined(type, attribute);
+        }
     }
 }

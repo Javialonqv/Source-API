@@ -14,7 +14,7 @@ namespace API.GameEngine
         /// <summary>
         /// The text to render.
         /// </summary>
-        public string text { get; set; }
+        public string text { get; set; } = "";
         /// <summary>
         /// The background color of the text.
         /// </summary>

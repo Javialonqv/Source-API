@@ -7,6 +7,7 @@ using API.GameEngine;
 
 namespace App
 {
+    [ExecuteOnGameObjectDisabled]
     public class TestClassMove : MainBrain
     {
 #pragma warning disable
@@ -19,7 +20,11 @@ namespace App
         // Update is called every frame.
         void Update()
         {
-            if (Input.GetButtonDown("Jump")) position += new Vector2(0, 1f);
+            if (Input.GetButtonDown("Jump"))
+            {
+                gameObject.SetActive(!gameObject.activeSelf);
+                print("Changed to: " + gameObject.activeSelf);
+            }
         }
     }
 }
