@@ -65,6 +65,8 @@ namespace API.GameEngine
                 {
                     Thread.Sleep(frameTime - elapsed);
                 }
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.Clear();
             }
         }

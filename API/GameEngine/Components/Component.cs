@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace API.GameEngine
 {
+    /// <summary>
+    /// The main class for adding components to a GameObject.
+    /// </summary>
     public class Component
     {
         /// <summary>

@@ -27,8 +27,11 @@ namespace App
             Game game = new Game();
             GameObject obj = new GameObject("test");
             GameObject obj2 = new GameObject("test");
-            Debug.LogInfo(obj.name);
-            Debug.LogInfo(obj2.name);
+            obj.AddComponent<Text>().bgColor = ConsoleColor.Red;
+            obj2.AddComponent<Text>().bgColor = ConsoleColor.Blue;
+            obj.GetComponent<Text>().text = "HELLO WORLD!";
+            obj2.GetComponent<Text>().text = "HOLA MUNDO!";
+            obj2.position = new Vector2(0, 2);
             game.Run();
             Console.ReadKey();
         }
