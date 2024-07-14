@@ -89,6 +89,7 @@
     <Compile Include="Debug.cs" />
     <Compile Include="ExceptionsManager.cs" />
     <Compile Include="GameEngine\Attributes\ExecuteOnGameObjectDisabled.cs" />
+    <Compile Include="GameEngine\Attributes\RequireComponent.cs" />
     <Compile Include="GameEngine\Components\Component.cs" />
     <Compile Include="GameEngine\Components\Text.cs" />
     <Compile Include="GameEngine\Game.cs" />

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Threading;
+using NAudio.Wave;
 
 namespace API.GameEngine
 {
@@ -94,6 +95,30 @@ namespace API.GameEngine
         internal static bool HasAttribute(Type type, Type attribute)
         {
             return Attribute.IsDefined(type, attribute);
+        }
+
+        internal static void InitRequiredComponents(Type componentType, Component componentInstance)
+        {
+            object[] attributes = componentType.GetCustomAttributes(typeof(RequireComponent), false); // Get all the RequireComponent attributes from that class.
+            if (attributes != null) // If there are attributes
+            {
+                if (attributes.Length > 0) // If there are attributes
+                {
+                    foreach (var attribute in attributes)
+                    {
+                        RequireComponent currentAttribute = attribute as RequireComponent;
+                        // Check for every component inside of the gameobject attached to that component class.
+                        foreach (Component component in componentInstance.gameObject.components)
+                        {
+                            if (currentAttribute.componentType == component.GetType()) { return; }
+                        }
+                        // In case we need to create a new instance:
+                        object newInstance = Activator.CreateInstance(currentAttribute.componentType);
+                        ((Component)newInstance).gameObject = componentInstance.gameObject;
+                        componentInstance.gameObject.components.Add((Component)newInstance);
+                    }
+                }
+            }
         }
     }
 }
