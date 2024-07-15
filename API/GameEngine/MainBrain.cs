@@ -104,16 +104,13 @@ namespace API.GameEngine
             {
                 if (attributes.Length > 0) // If there are attributes
                 {
-                    foreach (var attribute in attributes)
+                    foreach (var attribute in attributes) // Foreach every attribute that was found:
                     {
-                        RequireComponent currentAttribute = attribute as RequireComponent;
-                        // Check for every component inside of the gameobject attached to that component class.
-                        foreach (Component component in componentInstance.gameObject.components)
-                        {
-                            if (currentAttribute.componentType == component.GetType()) { return; }
-                        }
-                        // In case we need to create a new instance:
-                        object newInstance = Activator.CreateInstance(currentAttribute.componentType);
+                        RequireComponent currentAttribute = attribute as RequireComponent; // Get the attribute.
+                        // If there's an instance of the required component already, do nothing and return:
+                        if (componentInstance.gameObject.GetComponent(currentAttribute.requiredComponent) != null) { return; }
+                        // Otherwise, create a new instance:
+                        object newInstance = Activator.CreateInstance(currentAttribute.requiredComponent);
                         ((Component)newInstance).gameObject = componentInstance.gameObject;
                         componentInstance.gameObject.components.Add((Component)newInstance);
                     }

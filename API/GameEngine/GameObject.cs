@@ -115,6 +115,7 @@ namespace API.GameEngine
             Component newComponent = new T();
             newComponent.gameObject = this;
             components.Add(newComponent);
+            MainBrain.InitRequiredComponents(typeof(T), newComponent);
             return (T)newComponent;
         }
         /// <summary>
@@ -126,6 +127,16 @@ namespace API.GameEngine
         {
             if (components.FirstOrDefault(c => c is T) == null) { ExceptionsManager.CantFindSpecifiedComponent(name); return null; }
             return (T)components.Find(c => c is T);
+        }
+        /// <summary>
+        /// Gets a component from the GameObject.
+        /// </summary>
+        /// <param name="type">The component type to get.</param>
+        /// <returns>The instance of the component if it exists.</returns>
+        public Component GetComponent(Type type)
+        {
+            if (components.FirstOrDefault(c => c.GetType() == type) == null) { return null;  }
+            return components.Find(c => c.GetType() == type);
         }
         /// <summary>
         /// Gets all the components as the same type from the GameObject.

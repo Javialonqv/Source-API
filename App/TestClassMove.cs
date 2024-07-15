@@ -8,6 +8,7 @@ using API.GameEngine;
 namespace App
 {
     [ExecuteOnGameObjectDisabled]
+    [RequireComponent(typeof(Text))]
     public class TestClassMove : MainBrain
     {
 #pragma warning disable

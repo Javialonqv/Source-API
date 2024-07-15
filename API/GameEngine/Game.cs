@@ -76,12 +76,6 @@ namespace API.GameEngine
         /// </summary>
         void Start()
         {
-            // Iterate foreach object a first time to create all the required components.
-            for (int i = 0; i < gameObjects.Count; i++)
-            {
-                for (int j = 0; j < gameObjects[i].components.Count; j++) { MainBrain.InitRequiredComponents(gameObjects[i].components[j].GetType(), gameObjects[i].components[j]); }
-            }
-
             foreach (GameObject obj in gameObjects) // Iterate for each gameobject.
             {
                 foreach (Component component in obj.components) // Iterate for each componenet of the currrent gameobject.
