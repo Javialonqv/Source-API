@@ -28,6 +28,7 @@ namespace App
             GameObject obj = new GameObject("test");
             //obj.AddComponent<Text>();
             obj.AddComponent<TestClassMove>();
+            obj.GetComponent<Text>().text = "HELLO";
             game.Run();
             Console.ReadKey();
         }

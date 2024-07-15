@@ -117,7 +117,7 @@ namespace API.GameEngine
                 if (!obj.activeInHierarchy) { continue; } // Check if the object it's active, otherwise, do nothing.
                 foreach (Component component in obj.components) // Iterate for each componenet of the currrent gameobject.
                 {
-                    component.Render();
+                    if (component.enabled) { component.Render(); }
                 }
             }
         }

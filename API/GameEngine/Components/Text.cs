@@ -18,11 +18,11 @@ namespace API.GameEngine
         /// <summary>
         /// The background color of the text.
         /// </summary>
-        public ConsoleColor bgColor { get; set; }
+        public ConsoleColor bgColor { get; set; } = ConsoleColor.Black;
         /// <summary>
         /// The color of the text.
         /// </summary>
-        public ConsoleColor color { get; set; }
+        public ConsoleColor color { get; set; } = ConsoleColor.White;
 
         internal override void Render()
         {
