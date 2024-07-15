@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.Threading;
 using NAudio.Wave;
+using System.Diagnostics;
 
 namespace API.GameEngine
 {
@@ -107,6 +108,7 @@ namespace API.GameEngine
                     foreach (var attribute in attributes) // Foreach every attribute that was found:
                     {
                         RequireComponent currentAttribute = attribute as RequireComponent; // Get the attribute.
+                        if (currentAttribute.requiredComponent == null) { return; }
                         // If there's an instance of the required component already, do nothing and return:
                         if (componentInstance.gameObject.GetComponent(currentAttribute.requiredComponent) != null) { return; }
                         // Otherwise, create a new instance:

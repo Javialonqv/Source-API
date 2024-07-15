@@ -149,6 +149,10 @@ namespace API
         {
             ShowError($"Index \"{specifiedIndex}\" was outside of the bounds of the object, the number of childs is \"{childCount}\".");
         }
+        public static void TypeDoesntInheritFromComponent(string typeName)
+        {
+            ShowError($"The type of \"{typeName}\" doesn't inherit from the Component class.");
+        }
 
         /// <summary>
         /// Shows the specified error into a dialog box or logger if it's enabled.
@@ -158,7 +162,7 @@ namespace API
         {
             if (ConfigFile.LoggerEnabled)
             {
-                Debug.LogInternalError(errorMessage);
+                Debug.LogInternalError(errorMessage.ToString() + GetCallStack());
             }
             else
             {

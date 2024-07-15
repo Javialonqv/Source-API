@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace API.GameEngine
 {
@@ -16,7 +17,13 @@ namespace API.GameEngine
 
         public RequireComponent(Type componentType)
         {
-            this.requiredComponent = componentType;
+            if (componentType != typeof(Component) && !componentType.IsAssignableFrom(typeof(Component)))
+            {
+                ExceptionsManager.TypeDoesntInheritFromComponent(componentType.FullName);
+                requiredComponent = null;
+                return;
+            }
+            requiredComponent = componentType;
         }
     }
 }
