@@ -40,6 +40,15 @@ namespace API.GameEngine
             return gameObject.AddComponent<T>();
         }
         /// <summary>
+        /// Adds a new component into the GameObject.
+        /// </summary>
+        /// <param name="componentType">The component type.</param>
+        /// <returns>An instance of the created component.</returns>
+        public Component AddComponent(Type componentType)
+        {
+            return gameObject.AddComponent(componentType);
+        }
+        /// <summary>
         /// Gets a component from the GameObject.
         /// </summary>
         /// <typeparam name="T">The component type to get.</typeparam>
@@ -47,6 +56,15 @@ namespace API.GameEngine
         public T GetComponent<T>() where T : Component
         {
             return gameObject.GetComponent<T>();
+        }
+        /// <summary>
+        /// Gets a component from the GameObject.
+        /// </summary>
+        /// <param name="componentType">The component type to get.</param>
+        /// <returns>The instance of the component if it exists.</returns>
+        public Component GetComponent(Type componentType)
+        {
+            return gameObject.GetComponent(componentType);
         }
         /// <summary>
         /// Tries to get a component from the GameObject.
@@ -57,6 +75,16 @@ namespace API.GameEngine
         public bool TryGetComponent<T>(out T component) where T : Component
         {
             return gameObject.TryGetComponent<T>(out component);
+        }
+        /// <summary>
+        /// Tries to get a component from the GameObject.
+        /// </summary>
+        /// <param name="componentType">The component type to get.</param>
+        /// <param name="component">A variable to return the instance of the component.</param>
+        /// <returns>The specified component really exists?</returns>
+        public bool TryGetComponent(Type componentType, out Component component)
+        {
+            return gameObject.TryGetComponent(componentType, out component);
         }
 
         /// <summary>
@@ -189,5 +217,7 @@ namespace API.GameEngine
                 }
             }
         }
+
+        internal static object CreateInstance(Type type) { return Activator.CreateInstance(type); }
     }
 }

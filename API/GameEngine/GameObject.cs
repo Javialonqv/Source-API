@@ -124,6 +124,22 @@ namespace API.GameEngine
             return (T)newComponent;
         }
         /// <summary>
+        /// Adds a new component into the GameObject.
+        /// </summary>
+        /// <param name="component">The component type.</param>
+        /// <returns>An instance of the created component.</returns>
+        public Component AddComponent(Type component)
+        {
+            if (!component.IsSubclassOf(typeof(Component))) { ExceptionsManager.TypeDoesntInheritFromComponent(component.FullName); return null; }
+
+            Component newComponent = (Component)MainBrain.CreateInstance(component);
+            newComponent.gameObject = this;
+            components.Add(newComponent);
+            MainBrain.InitRequiredComponents(component, newComponent);
+            return newComponent;
+        }
+
+        /// <summary>
         /// Gets a component from the GameObject.
         /// </summary>
         /// <typeparam name="T">The component type to get.</typeparam>
@@ -136,12 +152,12 @@ namespace API.GameEngine
         /// <summary>
         /// Gets a component from the GameObject.
         /// </summary>
-        /// <param name="type">The component type to get.</param>
+        /// <param name="componentType">The component type to get.</param>
         /// <returns>The instance of the component if it exists.</returns>
-        public Component GetComponent(Type type)
+        public Component GetComponent(Type componentType)
         {
-            if (components.FirstOrDefault(c => c.GetType() == type) == null) { return null;  }
-            return components.Find(c => c.GetType() == type);
+            if (components.FirstOrDefault(c => c.GetType() == componentType) == null) { return null;  }
+            return components.Find(c => c.GetType() == componentType);
         }
         /// <summary>
         /// Gets all the components as the same type from the GameObject.
@@ -153,6 +169,16 @@ namespace API.GameEngine
             return components.Where(c => c is T).Select(c => c as T).ToArray();
         }
         /// <summary>
+        /// Gets all the components as the same type from the GameObject.
+        /// </summary>
+        /// <param name="componentType">The component type to get.</param>
+        /// <returns>An array of components from the specified type.</returns>
+        public Component[] GetComponents(Type componentType)
+        {
+            return components.Where(c => c.GetType() == componentType).ToArray();
+        }
+
+        /// <summary>
         /// Tries to get a component from the GameObject.
         /// </summary>
         /// <typeparam name="T">The component type to get.</typeparam>
@@ -163,6 +189,25 @@ namespace API.GameEngine
             try
             {
                 component = (T)components.FirstOrDefault(c => c is T);
+                return component != null;
+            }
+            catch
+            {
+                component = null;
+                return false;
+            }
+        }
+        /// <summary>
+        /// Tries to get a component from the GameObject.
+        /// </summary>
+        /// <param name="componentType">The component type to get.</param>
+        /// <param name="component">A variable to return the instance of the component.</param>
+        /// <returns>The specified component really exists?</returns>
+        public bool TryGetComponent(Type componentType, out Component component)
+        {
+            try
+            {
+                component = components.FirstOrDefault(c => c.GetType() == componentType);
                 return component != null;
             }
             catch
