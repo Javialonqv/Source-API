@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace API.GameEngine
 {
@@ -56,6 +57,10 @@ namespace API.GameEngine
         /// The local active state of this GameObject.
         /// </summary>
         public bool activeSelf { get; private set; } = true;
+        /// <summary>
+        /// The tag that identifies this GameObject.
+        /// </summary>
+        public string tag { get; set; }
 
         /// <summary>
         /// Creates a new GameObject with a default name.
@@ -206,6 +211,16 @@ namespace API.GameEngine
         {
             if (includeInactive) { return Game.gameInstance.gameObjects.FirstOrDefault(obj => obj.name == name); } // Just look for ACTIVE objects.
             else { return Game.gameInstance.gameObjects.FirstOrDefault(obj => obj.name == name && obj.activeInHierarchy); } // Look for all of them.
+        }
+
+        /// <summary>
+        /// Is this GameObject tagget with tag?
+        /// </summary>
+        /// <param name="tag">The tag to compare.</param>
+        /// <returns>Returns true if the GameObject is tagged with the specified one.</returns>
+        public bool CompareTag(string tag)
+        {
+            return this.tag == tag;
         }
     }
 }

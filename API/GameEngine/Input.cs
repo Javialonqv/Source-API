@@ -20,6 +20,16 @@ namespace API.GameEngine
         /// Specifies the previous pressed keys on the previous frame.
         /// </summary>
         static HashSet<ConsoleKey> previousKeys = new HashSet<ConsoleKey>();
+        /// <summary>
+        /// Specifies if any key is pressed on the current frame.
+        /// </summary>
+        public static bool anyKey
+        {
+            get
+            {
+                return currentKeys.Count > 0;
+            }
+        }
 
         /// <summary>
         /// Used for get the current state of the specified key using the user32.dll.
