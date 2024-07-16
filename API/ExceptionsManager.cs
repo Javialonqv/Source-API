@@ -149,9 +149,17 @@ namespace API
         {
             ShowError($"Index \"{specifiedIndex}\" was outside of the bounds of the object, the number of childs is \"{childCount}\".");
         }
+        /// <summary>
+        /// Prints an error that says the specified type doesnt inherit from the Component class.
+        /// </summary>
+        /// <param name="typeName">The type name.</param>
         public static void TypeDoesntInheritFromComponent(string typeName)
         {
             ShowError($"The type of \"{typeName}\" doesn't inherit from the Component class.");
+        }
+        public static void ButtonDoesntExistsOnConfigFile(string buttonName)
+        {
+            ShowError($"The button of \"{buttonName}\" name doesn't exists on the SourceConfig.json file.");
         }
 
         /// <summary>
@@ -162,7 +170,7 @@ namespace API
         {
             if (ConfigFile.LoggerEnabled)
             {
-                Debug.LogInternalError(errorMessage.ToString() + GetCallStack());
+                Debug.LogInternalError(errorMessage.ToString());
             }
             else
             {

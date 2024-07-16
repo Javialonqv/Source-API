@@ -101,6 +101,10 @@ namespace API.GameEngine
                     if (currentKeys.Contains(consoleKey)) { return true; }
                 }
             }
+            else
+            {
+                ExceptionsManager.ButtonDoesntExistsOnConfigFile(buttonName);
+            }
             return false;
         }
         /// <summary>
@@ -122,6 +126,10 @@ namespace API.GameEngine
                     if (currentKeys.Contains(consoleKey) && !previousKeys.Contains(consoleKey)) { return true; }
                 }
             }
+            else
+            {
+                ExceptionsManager.ButtonDoesntExistsOnConfigFile(buttonName);
+            }
             return false;
         }
         /// <summary>
@@ -142,6 +150,10 @@ namespace API.GameEngine
                 {
                     if (!currentKeys.Contains(consoleKey) && previousKeys.Contains(consoleKey)) { return true; }
                 }
+            }
+            else
+            {
+                ExceptionsManager.ButtonDoesntExistsOnConfigFile(buttonName);
             }
             return false;
         }

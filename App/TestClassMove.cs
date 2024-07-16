@@ -15,7 +15,7 @@ namespace App
         // Start is called at the start of the runtime.
         void Start()
         {
-            print(GameObject.FindGameObjectsWithTag("HELLO"));
+            
         }
 
         // Update is called every frame.
@@ -25,6 +25,10 @@ namespace App
             {
                 gameObject.SetActive(!gameObject.activeSelf);
                 print("Changed to: " + gameObject.activeSelf);
+            }
+            if (Input.GetButtonDown("Pause"))
+            {
+                Application.Quit();
             }
         }
     }

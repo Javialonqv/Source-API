@@ -6,5 +6,6 @@
   "logAsMessageBoxWhenLoggerDisabled": false,
   "buttons": {
     "Jump": [ "Spacebar", "UpArrow" ],
+    "Pause":  [ "Escape" ]
   }
 }
