@@ -8,14 +8,14 @@ using API.GameEngine;
 namespace App
 {
     [ExecuteOnGameObjectDisabled]
-    [RequireComponent(typeof(Text))]
+    //[RequireComponent(typeof(Text))]
     public class TestClassMove : MainBrain
     {
 #pragma warning disable
         // Start is called at the start of the runtime.
         void Start()
         {
-            
+            print(GameObject.FindGameObjectsWithTag("HELLO"));
         }
 
         // Update is called every frame.

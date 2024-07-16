@@ -83,6 +83,76 @@ namespace API.GameEngine
             thread.Start();
         }
 
+        /// <summary>
+        /// Tries to find an object of the specified type.
+        /// </summary>
+        /// <typeparam name="T">The type to find.</typeparam>
+        /// <returns>Returns the first loaded object of the specified type.</returns>
+        public static T FindObjectOfType<T>() where T : Component
+        {
+            foreach (GameObject obj in Game.gameInstance.gameObjects)
+            {
+                if (obj.TryGetComponent<T>(out T component))
+                {
+                    return component;
+                }
+            }
+            return null;
+        }
+        /// <summary>
+        /// Tries to find an object of the specified type.
+        /// </summary>
+        /// <param name="type">The type to find.</param>
+        /// <returns>Returns the first loaded object of the specified type.</returns>
+        public static object FindObjectOfType(Type type)
+        {
+            foreach (GameObject obj in Game.gameInstance.gameObjects)
+            {
+                Component component = obj.components.FirstOrDefault(c => c.GetType() == type);
+                if (component != null)
+                {
+                    return component;
+                }
+            }
+            return null;
+        }
+        /// <summary>
+        /// Tries to find all the objects of the specified type.
+        /// </summary>
+        /// <typeparam name="T">The type to find.</typeparam>
+        /// <returns>Returns all the loaded objects of the specified type.</returns>
+        public static T[] FindObjectsOfType<T>() where T : Component
+        {
+            List<T> listToReturn = new List<T>();
+
+            foreach (GameObject obj in Game.gameInstance.gameObjects)
+            {
+                if (obj.TryGetComponent<T>(out T component))
+                {
+                    listToReturn.Add(component);
+                }
+            }
+            return listToReturn.Count > 0 ? listToReturn.ToArray() : null;
+        }
+        /// <summary>
+        /// Tries to find all the objects of the specified type.
+        /// </summary>
+        /// <param name="type">The type to find.</param>
+        /// <returns>Returns all the loaded objects of the specified type.</returns>
+        public static object[] FindObjectsOfType(Type type)
+        {
+            List<object> listToReturn = new List<object>();
+            foreach (GameObject obj in Game.gameInstance.gameObjects)
+            {
+                Component component = obj.components.FirstOrDefault(c => c.GetType() == type);
+                if (component != null)
+                {
+                    listToReturn.Add(component);
+                }
+            }
+            return listToReturn.Count > 0 ? listToReturn.ToArray() : null;
+        }
+
         internal static void CallMethod(string methodName, object instance)
         {
             Type type = instance.GetType();

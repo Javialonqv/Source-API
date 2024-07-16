@@ -25,10 +25,13 @@ namespace App
 #endif
 
             Game game = new Game();
-            GameObject obj = new GameObject("test");
+            GameObject obj = new GameObject("test")
+            {
+                tag = "HELLO"
+            };
             //obj.AddComponent<Text>();
             obj.AddComponent<TestClassMove>();
-            obj.GetComponent<Text>().text = "HELLO";
+            //obj.GetComponent<Text>().text = "HELLO";
             game.Run();
             Console.ReadKey();
         }

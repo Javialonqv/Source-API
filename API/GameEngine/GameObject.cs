@@ -212,6 +212,25 @@ namespace API.GameEngine
             if (includeInactive) { return Game.gameInstance.gameObjects.FirstOrDefault(obj => obj.name == name); } // Just look for ACTIVE objects.
             else { return Game.gameInstance.gameObjects.FirstOrDefault(obj => obj.name == name && obj.activeInHierarchy); } // Look for all of them.
         }
+        /// <summary>
+        /// Tries to find a GameObject with the specified tag.
+        /// </summary>
+        /// <param name="tag">The tag of the GameObject.</param>
+        /// <returns>Returns a GameObject tagget with the specified tag.</returns>
+        public static GameObject FindWithTag(string tag)
+        {
+            return Game.gameInstance.gameObjects.FirstOrDefault(obj => obj.tag == tag);
+        }
+        /// <summary>
+        /// Tries to find all the GameObjects with the specified tag.
+        /// </summary>
+        /// <param name="tag">The tag of the GameObjects.</param>
+        /// <returns>Returns an array of the GameObjects with the specified tag.</returns>
+        public static GameObject[] FindGameObjectsWithTag(string tag)
+        {
+            GameObject[] objects = Game.gameInstance.gameObjects.Where(obj => obj.tag == tag).ToArray();
+            return objects.Length > 0 ? objects : null;
+        }
 
         /// <summary>
         /// Is this GameObject tagget with tag?

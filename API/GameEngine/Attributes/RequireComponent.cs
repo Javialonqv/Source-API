@@ -17,7 +17,7 @@ namespace API.GameEngine
 
         public RequireComponent(Type componentType)
         {
-            if (componentType != typeof(Component) && !componentType.IsAssignableFrom(typeof(Component)))
+            if (componentType != typeof(Component) && !componentType.IsSubclassOf(typeof(Component)))
             {
                 ExceptionsManager.TypeDoesntInheritFromComponent(componentType.FullName);
                 requiredComponent = null;
