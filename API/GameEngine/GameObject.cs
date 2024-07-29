@@ -16,16 +16,16 @@ namespace API.GameEngine
         /// <summary>
         /// Specifies the name of the object.
         /// </summary>
-        public string name { get; set; }
+        public string? name { get; set; }
         /// <summary>
         /// Specifies the position of the object.
         /// </summary>
-        public Vector2 position { get; set; }
-        GameObject Parent;
+        public Vector2? position { get; set; }
+        GameObject? Parent;
         /// <summary>
         /// Specifies the parent object of this one.
         /// </summary>
-        public GameObject parent
+        public GameObject? parent
         {
             get { return Parent; }
             set
@@ -60,7 +60,7 @@ namespace API.GameEngine
         /// <summary>
         /// The tag that identifies this GameObject.
         /// </summary>
-        public string tag { get; set; }
+        public string? tag { get; set; }
 
         /// <summary>
         /// Creates a new GameObject with a default name.
@@ -164,7 +164,7 @@ namespace API.GameEngine
         /// </summary>
         /// <typeparam name="T">The component type to get.</typeparam>
         /// <returns>An array of components from the specified type.</returns>
-        public T[] GetComponents<T>() where T : Component
+        public T?[] GetComponents<T>() where T : Component
         {
             return components.Where(c => c is T).Select(c => c as T).ToArray();
         }
@@ -188,6 +188,7 @@ namespace API.GameEngine
         {
             try
             {
+#pragma warning disable CS8601
                 component = (T)components.FirstOrDefault(c => c is T);
                 return component != null;
             }
