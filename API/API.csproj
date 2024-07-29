@@ -9,6 +9,7 @@
     <NoWarn>CS8602, CS8604, SYSLIB0011, CS8603, CS8600, CS8625</NoWarn>
 	<BaseOutputPath>..\Builds\DebugBuild</BaseOutputPath>
 	<EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
+	<UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
