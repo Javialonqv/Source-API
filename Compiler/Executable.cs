@@ -11,7 +11,7 @@ namespace Compiler
 {
     public class Executable
     {
-        public CompilerConfigFile configFile;
+        public CompilerConfigFile? configFile;
 
         /// <summary>
         /// Serializes the Config File into a Source Executable File.

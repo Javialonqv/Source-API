@@ -75,8 +75,16 @@ namespace API
 
         static void InitializeClient()
         {
-            // Unfortunely, there' no way to create two windows in one app, so, we need to make another app.
-            Process.Start(Paths.loggerExecutableFilePath);
+            // Unfortunely, there's no way to create two windows in one app, so, we need to make another app.
+            var process = new Process()
+            {
+                StartInfo = new ProcessStartInfo()
+                {
+                    FileName = Paths.loggerExecutableFilePath,
+                    UseShellExecute = true, // Now with .NET 8 I have to switch this shit to true -_-
+                }
+            };
+            try { process.Start(); } catch { }
             // This use a Pipe Stream to send the info across the two apps.
             client = new NamedPipeClientStream(".", "SourceLogger");
             client.Connect();

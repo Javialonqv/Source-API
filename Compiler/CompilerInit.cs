@@ -14,6 +14,7 @@ namespace Compiler
         {
             // Init the paths and delete the log file if it exists.
             CompilerPaths.Init();
+            if (!Directory.Exists(CompilerPaths.buildPath)) { Directory.CreateDirectory(CompilerPaths.buildPath); }
             DLLCompiler.DeleteLogFile();
 
             // Delte the previous build ONLY if that property is true in the preferences.json file.

@@ -29,9 +29,9 @@ namespace App
             {
                 tag = "HELLO"
             };
-            //obj.AddComponent<Text>();
+            obj.AddComponent<Text>();
             obj.AddComponent<TestClassMove>();
-            //obj.GetComponent<Text>().text = "HELLO";
+            obj.GetComponent<Text>().text = "HELLO";
             game.Run();
             Console.ReadKey();
         }

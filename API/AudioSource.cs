@@ -103,7 +103,7 @@ namespace API
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void OnPlaybackStopped(object sender, StoppedEventArgs e)
+        void OnPlaybackStopped(object? sender, StoppedEventArgs e)
         {
             if (loop)
             {

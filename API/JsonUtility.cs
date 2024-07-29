@@ -66,7 +66,7 @@ namespace API
         /// </summary>
         /// <param name="json">The JSON text.</param>
         /// <param name="obj">Reference to the obj to set the properties.</param>
-        public static void FromJson(string json, ref object obj)
+        public static void FromJson(string json, ref object? obj)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {

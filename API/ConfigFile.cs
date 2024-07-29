@@ -18,7 +18,7 @@ namespace API
         /// <summary>
         /// Specifies the current instance of the class loaded in memory.
         /// </summary>
-        public static ConfigFile loaded = null;
+        public static ConfigFile? loaded = null;
         /// <summary>
         /// Specifies whether the logger will be enabled or not.
         /// </summary>
@@ -53,7 +53,7 @@ namespace API
         /// <summary>
         /// Specifies the buttons used by the Source Game Engine to specific actions.
         /// </summary>
-        public Dictionary<string, string[]> buttons { get; set; }
+        public Dictionary<string, string[]>? buttons { get; set; }
 
         /// <summary>
         /// Inits an instance of the ConfigFile class by reading the SourceConfig.json file.

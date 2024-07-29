@@ -96,7 +96,7 @@ namespace API
             {
                 return Buff.ToString();
             }
-            return null;
+            return "";
         }
         /// <summary>
         /// Specifies if this app is the active window.

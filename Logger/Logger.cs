@@ -33,7 +33,7 @@ namespace Logger
                             Console.Clear();
                             goto Connection;
                         }
-                        string line = reader.ReadLine();
+                        string? line = reader.ReadLine();
                         if (!string.IsNullOrEmpty(line))
                         {
                             if (line == "kill-server") { Environment.Exit(0); }
